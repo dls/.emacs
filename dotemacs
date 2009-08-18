@@ -1,0 +1,73 @@
+(add-to-list 'load-path "~/.emacs.d")
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(menu-bar-mode)
+(iswitchb-mode)
+(if (boundp 'tool-bar-mode)
+    (tool-bar-mode))
+
+(global-set-key [?\M-\]] 'kill-paragraph)
+(global-set-key [?\M-3] 'call-last-kbd-macro)
+(global-set-key [?\C-j] 'comment-indent-new-line)
+
+(put 'downcase-region 'disabled nil)
+
+(add-to-list 'load-path "~/.emacs.d/slime")
+(setq inferior-lisp-program "/opt/local/bin/sbcl")
+(require 'slime)
+(slime-setup)
+
+(add-to-list 'load-path "~/.emacs.d/git-emacs")
+;(require 'git-emacs)
+
+(load "~/.emacs.d/haskell-mode/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+(setq auto-mode-alist
+      (append
+       '(("\\.pl$" . prolog-mode))
+       auto-mode-alist))
+(setq prolog-program-name "swipl")
+;(setq prolog-consult-string "[user].\n")
+
+(add-to-list 'load-path "~/.emacs.d/cc-mode")
+;;(global-set-key [C-c C-l] 'compile)
+(autoload 'awk-mode "cc-mode" nil t)
+
+(add-to-list 'load-path "~/.emacs.d/d-mode")
+(autoload 'd-mode "d-mode" 
+  "Major mode for editing D code." t)
+(setq auto-mode-alist (cons '( "\\.d\\'" . d-mode ) auto-mode-alist ))
+(autoload 'dlint-minor-mode "dlint" nil t)
+(add-hook 'd-mode-hook (lambda () (dlint-minor-mode 1)))
+
+(add-to-list 'load-path "~/.emacs.d/ess/lisp")
+(require 'ess-site)
+
+(defun word-count nil "Count words in buffer" (interactive)
+  (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+(setq load-path (cons "~/.emacs.d/emacs-rails" load-path))
+(require 'rails)
+
+(require 'yaml-mode)
+
+;; file last-edited-point saving
+(require 'saveplace)
+(setq-default save-place t)
+(defvar save-place-file (convert-standard-filename "~/.emacs.d/.saveplace")
+  "*Name of the file that records `save-place-alist' value.")
+
+;; minibuffer history saving
+;(setq savehist-file "~/.emacs.d/.savehist")
+;(savehist-mode 1)
+
+;; open file saving
+;;(require 'save-visited-files)
+;;(open-visited-files)
+;;(save-visited-files-mode 1)
