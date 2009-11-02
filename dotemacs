@@ -40,7 +40,7 @@
 (autoload 'awk-mode "cc-mode" nil t)
 
 (add-to-list 'load-path "~/.emacs.d/d-mode")
-(autoload 'd-mode "d-mode" 
+(autoload 'd-mode "d-mode"
   "Major mode for editing D code." t)
 (setq auto-mode-alist (cons '( "\\.d\\'" . d-mode ) auto-mode-alist ))
 (autoload 'dlint-minor-mode "dlint" nil t)
@@ -71,3 +71,15 @@
 ;;(require 'save-visited-files)
 ;;(open-visited-files)
 ;;(save-visited-files-mode 1)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'tramp)
+(setq tramp-default-method "ssh")
+;; /service2.retailinkjet.com:/home/dls/api.retailinkjet.com
+
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
+(add-hook 'javascript-mode-hook 'javascript-custom-setup)
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
