@@ -85,3 +85,6 @@
   (moz-minor-mode 1))
 
 (require 'haml-mode)
+
+(load "typing-speed.el")
+
