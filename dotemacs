@@ -122,3 +122,5 @@
 		      ;; Set buffer-local variables here.  For example:
 		      (dired-omit-mode 1)
 		      )))
+
+(load-file "~/.emacs.d/dvc-snapshot/++build/dvc-load.el")

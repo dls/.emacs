@@ -1,0 +1,7 @@
+dvc (0r20091206-1) unstable; urgency=low
+
+  * New snapshot.
+  * Add dvc.texinfo license to debian/copyright.
+  * Julien Danjou is the sponsor for DVC (Closes: #496930).
+
+ -- Daniel Dehennin <daniel.dehennin@baby-gnu.org>  Sun, 06 Dec 2009 11:54:58 +0100

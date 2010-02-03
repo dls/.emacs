@@ -1,0 +1,1193 @@
+<html lang="en">
+<head>
+<title>DVC - The Emacs interface to tla/baz</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="DVC - The Emacs interface to tla/baz">
+<meta name="generator" content="makeinfo 4.7">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc { font-variant:small-caps }
+  span.roman { font-family: serif; font-weight: normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">DVC - The Emacs interface to tla/baz</h1>
+<div class="node">
+<p><hr>
+<a name="Top"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Installation">Installation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+<br>
+</div>
+
+<h2 class="chapter">1 DVC</h2>
+
+<p><b>DVC</b> is an Emacs front end for various Decentralized Revision Control
+systems. It is the successor, and still includes Xtla, which is the
+Emacs front-end to tla and baz (GNU Arch client).
+
+   <p>DISCLAIMER: DVC is not finished. This documentation has not been really
+updated for DVC, but should still apply for Xtla.
+
+   <p>The main features are:
+
+     <ul>
+<li>PCL-CVS like interface for tla inventory
+<li>Archive browser. Navigate painlessly in archives, categories, branches, versions, ... 
+<li>Good integration in Emacs. Almost everything can be done from within the editor
+<li>Bookmark manager. Keep the most frequently used arch locations in your bookmark buffer. 
+<li>Integration of ediff, Emacs's graphical diff tool. (Even outside dvc it's great, you should try it)
+          <ul>
+<li>To view changes made in a local tree
+<li>To view and resolve conflicts after a merge. 
+</ul>
+     <li>Interface to view missing patches from all your partners with a single command
+<li>An Emacs mode for arch related files (log files, =tagging-method)
+<li>Send/receive/apply patches via Gnus
+</ul>
+
+   <p>This file documents <b>DVC</b>, version
+
+   <p>Unknown version
+
+<!-- ============================================================================ -->
+<ul class="menu">
+<li><a accesskey="1" href="#Installation">Installation</a>
+<li><a accesskey="2" href="#DVC-Tour">DVC Tour</a>
+<li><a accesskey="3" href="#Use-cases">Use cases</a>
+<li><a accesskey="4" href="#Trouble-Shooting">Trouble Shooting</a>
+<li><a accesskey="5" href="#Customization">Customization</a>
+<li><a accesskey="6" href="#Internals">Internals</a>
+<li><a accesskey="7" href="#Mailing-Lists">Mailing Lists</a>
+<li><a accesskey="8" href="#Wiki">Wiki</a>
+<li><a accesskey="9" href="#Changes">Changes</a>
+<li><a href="#The-Latest-Version">The Latest Version</a>
+<li><a href="#The-Future">The Future</a>
+<li><a href="#Thanks">Thanks</a>
+<li><a href="#Concept-Index">Concept Index</a>
+<li><a href="#Variable-Index">Variable Index</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Installation"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#DVC-Tour">DVC Tour</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.1 Installation</h3>
+
+<p><a name="index-Installation-1"></a><a name="index-Makefile-2"></a>
+This program consists of several groups of files, organized by directory:
+
+<ul class="menu">
+<li><a accesskey="1" href="#Dependencies">Dependencies</a>
+<li><a accesskey="2" href="#Hooking-into-GNU-Emacs">Hooking into GNU Emacs</a>
+</ul>
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Dependencies"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Hooking-into-GNU-Emacs">Hooking into GNU Emacs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Installation">Installation</a>
+<br>
+</div>
+
+<h4 class="subsection">1.1.1 Dependencies</h4>
+
+<p>Various parts of the <b>DVC</b> require extra packages to be available. 
+Currently there are the following dependencies:
+
+     <ul>
+<li><code>ewoc.el</code>: a utility to maintain a view of a list of objects
+in a buffer.  This is essential for dvc and a version of <code>ewoc.el</code>
+is included in the distribution until available by an stable version of
+XEmacs. It is already included in GNU Emacs 21.
+
+     <li><code>tree-widget.el</code> is required for <code>xtla-browse.el</code>. 
+The CVS version of GNU Emacs includes <code>tree-widget.el</code>. XEmacs
+users should install the latest <code>jde</code> package which includes
+<code>tree-widget.el</code>.
+
+     <p>You can also install it as a standalone package. The latest version of
+<code>tree-widget.el</code> can be found at
+<a href="http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/tree-widget.el">http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/tree-widget.el</a>
+
+     <p>If <code>tree-widget.el</code> is not in your default <code>load-path</code>, you
+should provide its location with the argument <code>--with-other-dirs</code>
+of the <code>configure</code> script.
+
+     <li><code>smerge-mode.el</code>: Minor mode to resolve diff3 conflicts.  It
+is not essential, but reduces resolving of conflicts to deciding which
+version to keep.
+
+     <p>The latest version of <code>smerge-mode.el</code> can be found at
+<a href="http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/smerge-mode.el">http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/smerge-mode.el</a>
+
+   </ul>
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Hooking-into-GNU-Emacs"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Dependencies">Dependencies</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Installation">Installation</a>
+<br>
+</div>
+
+<h4 class="subsection">1.1.2 Hooking into GNU Emacs</h4>
+
+<p><a name="index-Hooking-into-GNU-Emacs-3"></a>
+(There is nothing to do for XEmacs users here, just start using
+<b>DVC</b>, i.e. goto see <a href="#DVC-Tour">DVC Tour</a>)
+
+   <p>If you are reading this document the installation of files and setting
+up the <code>load-path</code> and <code>Info-directory-list</code> was already
+successful and you just need to load <b>DVC</b> now.
+
+   <p>If auto-loading was built correctly you may start with <code>M-x
+tla-archives RET</code>.
+
+   <p>In order to load <b>DVC</b> on Emacs start up you should include the following
+form in your Emacs configuration file, e.g. <code>~/.emacs.el</code>:
+
+<pre class="example">     <code>(load-file "/path/to/dvc/builddir/dvc-load.el")</code>
+</pre>
+   <p>Alternatively, you can set your load-path and load the autoload files
+manually with
+
+<pre class="example">     <code>(require 'dvc-autoloads)</code>
+     <code>(add-to-list 'load-path "/path/to/dvc/lisp/")</code>
+</pre>
+   <p>This will set up <b>DVC</b>.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="DVC-Tour"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Use-cases">Use cases</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.2 DVC Tour</h3>
+
+<p>This section discusses the basics of <b>DVC</b> - an overview of the
+available commands.
+
+<ul class="menu">
+<li><a accesskey="1" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<li><a accesskey="2" href="#First-contact">First contact</a>:                DVC is self documented
+<li><a accesskey="3" href="#Archive-Browsing">Archive Browsing</a>:             The basics of browsing
+<li><a accesskey="4" href="#Editing-Files">Editing Files</a>:                Inserting tags, adding change logs
+<li><a accesskey="5" href="#Committing-Files">Committing Files</a>:             How to commit your changes
+<li><a accesskey="6" href="#Using-Bookmarks">Using Bookmarks</a>:              Working in a team
+<li><a accesskey="7" href="#Transmit-patches-via-email">Transmit patches via email</a>:   Send/apply patches via Gnus
+</ul>
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="A-tutorial-guide-to-DVC"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#First-contact">First contact</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#DVC-Tour">DVC Tour</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.1 A tutorial guide to DVC</h4>
+
+<p>The following sections present a step-by-step tutorial guide to using
+DVC for some common tasks: registering an archive, bookmarking an
+existing project, creating your own local branch, getting a working
+tree, merging patches from the main branch and committing changes to
+your tree.
+
+   <p>For the purposes of this tutorial, we will use the DVC project as an
+example of a project you might like to track (humour me).
+
+<ul class="menu">
+<li><a accesskey="1" href="#Register-an-archive">Register an archive</a>
+<li><a accesskey="2" href="#Bookmarking-a-project">Bookmarking a project</a>
+<li><a accesskey="3" href="#Creating-a-branch-of-a-project-and-getting-a-project-tree">Creating a branch of a project and getting a project tree</a>
+<li><a accesskey="4" href="#Finding-and-merging-missing-patches">Finding and merging missing patches</a>
+<li><a accesskey="5" href="#Reviewing-and-committing-your-changes">Reviewing and committing your changes</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Register-an-archive"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Bookmarking-a-project">Bookmarking a project</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.1.1 Register an archive</h5>
+
+<p>The first step in tracking a project's development is to register its
+archive in your archive list.  You can do this by starting the archive
+browser (<kbd>C-x T A</kbd>) and typing <kbd>a r</kbd> to register a new archive. 
+DVC's archive location is currently
+<a href="http://www-verimag.imag.fr/~moy/arch/public/">http://www-verimag.imag.fr/~moy/arch/public/</a>, and the default
+value for the archive name will be fine.  Having done this, you should
+now see the newly-registered archive listed.
+
+<div class="node">
+<p><hr>
+<a name="Bookmarking-a-project"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Creating-a-branch-of-a-project-and-getting-a-project-tree">Creating a branch of a project and getting a project tree</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Register-an-archive">Register an archive</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.1.2 Bookmarking a project</h5>
+
+<p>The normal usage of DVC is to create a bookmark for each version of a
+project you are currently interested in.  Much of the arch's
+functionality is available from the bookmarks buffer, and it is one of
+the primary entry points for DVC.
+
+   <p>To track DVC's development, you will most likely want to add a bookmark
+for its main development line.  You can do this by entering the
+bookmarks buffer (<kbd>C-x T b</kbd>) and adding a new bookmark with (<kbd>a
+b</kbd>, or &ldquo;add bookmark&rdquo;).  You should be prompted for a version name,
+and you can use tab completion to enter
+<code>Matthieu.Moy@imag.fr--public/dvc--main--0</code>.  You can give your
+bookmark any name you like.
+
+   <p>Pressing <kbd>RET</kbd> on your newly-added bookmark will show you a revision
+list for that version.  You can use this list to browse archive logs
+(<kbd>RET</kbd> again), view changesets (<kbd>=</kbd>) and various other tasks.
+
+<div class="node">
+<p><hr>
+<a name="Creating-a-branch-of-a-project-and-getting-a-project-tree"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Finding-and-merging-missing-patches">Finding and merging missing patches</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Bookmarking-a-project">Bookmarking a project</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.1.3 Creating a branch of a project and getting a project tree</h5>
+
+<p>Having created a bookmark for the DVC project, you are ready to create
+your own branch.  Again from the bookmarks buffer (<kbd>C-x T b</kbd>), move
+the point to your bookmark for DVC and hit <kbd>M T</kbd>.  You will be
+prompted for the tag version to be created for your new branch.  Put the
+branch somewhere in your default archive (I put mine in
+<code>mark@dishevelled.net--2003-mst/dvc--main--0.1</code>.)  This will
+create a tag of the main DVC project in your own archive and add a
+bookmark for it.
+
+   <p>Your newly-added bookmark will be marked as a &ldquo;partner&rdquo; of your main
+DVC bookmark.  This records the fact that the two projects are related
+so that DVC can show you which patches from the DVC mainline are
+missing from your local tree, and other useful stuff (more on this
+later).
+
+   <p>At this point, you will probably want to get a project tree for your new
+branch.  You can do this by moving your point to its bookmark in the
+bookmark buffer, and hitting <kbd>&gt;</kbd>.  You will be prompted for a
+directory in which to place the project tree, and the revision to get
+(the default is fine in this case).  Once the project tree has been
+fetched, it will be automatically opened in dired.
+
+<div class="node">
+<p><hr>
+<a name="Finding-and-merging-missing-patches"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Reviewing-and-committing-your-changes">Reviewing and committing your changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Creating-a-branch-of-a-project-and-getting-a-project-tree">Creating a branch of a project and getting a project tree</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.1.4 Finding and merging missing patches</h5>
+
+<p>Before you start making changes, it is a good idea to see if any new
+patches have been added to the mainline since you last checked.  DVC is
+particularly good at doing this.
+
+   <p>Start by entering the bookmarks buffer (<kbd>C-x T b</kbd>), move your point
+to the bookmark of your DVC branch and hit <kbd>M m</kbd>.  A
+<code>*tla-missing*</code> buffer should appear, and show any patches that are
+in the mainline but not in your tree.
+
+   <p>To merge all missing patches from the DVC mainline into your project
+tree, move your point to the DVC mainline partner entry and hit <kbd>M
+s</kbd>.  You will be prompted for the path of your local project tree, and
+after the patches have been merged a changes buffer should be displayed.
+
+   <p>If you don't want to merge all the missing patches, you can leave off
+the <kbd>M</kbd> prefix.  For example, <kbd>r</kbd> will replay only the revision
+under the point (allowing you to cherry-pick patches), and <kbd>s</kbd> will
+star-merge all missing patches up to the patch under the point.
+
+<div class="node">
+<p><hr>
+<a name="Reviewing-and-committing-your-changes"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Finding-and-merging-missing-patches">Finding and merging missing patches</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.1.5 Reviewing and committing your changes</h5>
+
+<p>After making changes to your project tree, you are ready to commit.  You
+can review your changes by typing <kbd>C-x T =</kbd> from within your project
+tree, and a <code>*tla-changes*</code> buffer should appear with diff output. 
+Before committing, you might also like to tree-lint your local tree by
+hitting <kbd>C-x T l</kbd> (but this is done automatically if <code>tla
+changes</code> fails and suggests a <code>tree-lint</code>).
+
+   <p>Once you are satisfied with your changes, you can create a log file by
+hitting <kbd>C-x T c</kbd> (or simply <kbd>c</kbd> from your <code>*tla-changes*</code>
+buffer).  Many users prefer to write their log file incrementally, and
+you can always save this file and hit <kbd>C-x T c</kbd> to return to it
+later.  You can also add a ChangeLog-style entry by hitting <kbd>C-x T
+a</kbd> from the project tree file you are currently visiting.
+
+   <p>To commit your changes, type <kbd>C-c C-c</kbd> from your log buffer.
+
+<div class="node">
+<p><hr>
+<a name="First-contact"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Archive-Browsing">Archive Browsing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#A-tutorial-guide-to-DVC">A tutorial guide to DVC</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.2 First contact</h4>
+
+<p><b>DVC</b> is self documented, so this manual will be very short. We suppose
+you understand tla basics.
+
+   <p>There is a <b>DVC</b> entry in the tools menu which is a good starting
+point, and an "Tla-..." menu in most <b>DVC</b>-related modes. Once you
+have learnt the keyboard shortcuts, you will not need the menus anymore.
+
+   <p>The most important commands have global keybindings. The prefix is
+<kbd>C-x T</kbd> by default. Type <kbd>C-x T C-h</kbd> for a list. In each
+<b>DVC</b> specific buffer, other (shorter) keyboard shortcuts are
+available. <kbd>C-h m</kbd> will give you a list.
+
+   <p>To get help about a tla command, <kbd>C-x T h command RET</kbd> will show
+you the output of <code>tla command -H</code>. Since DVC is nothing more
+than a wrapper around tla, this is a very good way to get help !
+
+   <p>Before starting, you will need to set your ID if you have not already
+done so.
+
+   <p>You can execute the following command to set your id:
+
+   <p><kbd>C-u M-x tla-my-id</kbd> (or <kbd>M-x tla-set-my-id RET</kbd>)
+
+   <p>To check your id, call the same command without a prefix argument:
+
+   <p><kbd>M-x tla-my-id</kbd>
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Archive-Browsing"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Editing-Files">Editing Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#First-contact">First contact</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.3 Archive Browsing</h4>
+
+<p>It is pretty intuitive, just type <kbd>C-x T A</kbd> and investigate the
+menu bar (Hmm, many people usually deactivate the menu bar, but please,
+enable it while learning DVC ;-) You'll remove it afterwards) and the
+mode help by <kbd>C-h m</kbd>.
+
+   <p>If you have no archives registered yet, type <kbd>a r</kbd> and provide the
+location of an archive.
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Editing-Files"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Committing-Files">Committing Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Archive-Browsing">Archive Browsing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.4 Editing Files</h4>
+
+<p>Adding new files can be done in two ways:
+
+     <ol type=1 start=1>
+
+     <li>Add an arch-tag to the file, by typing <kbd>C-x T t</kbd>. Attention,
+files used as templates (<code>Makefile.in</code>) should be added explicitly
+instead of using arch-tag lines.
+
+     <li>Explicitly add it from the inventory view. Type <kbd>C-x T i</kbd>,
+mark the new files by typing <code>m</code> and finally add them by typing
+<kbd>a</kbd>.
+
+        </ol>
+
+   <p>You are encouraged to add log entries while you are editing.  Type
+<kbd>C-x T a</kbd> add your notes.
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Committing-Files"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Using-Bookmarks">Using Bookmarks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Editing-Files">Editing Files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.5 Committing Files</h4>
+
+     <ol type=1 start=1>
+<li>First review your changes by typing <kbd>C-x T =</kbd>.
+
+     <p>If your tree contains nested trees, then DVC will display the list of
+nested trees at the top of the changes buffer. They are marked with a
+<kbd>T</kbd> so that you can distinguish them from the modified files. 
+While computing, they have the status <code>?</code>, and this becomes
+<code>M</code> (resp. <code>-</code>) when the recursively called <code>tla</code>
+process exits if there are some changes (resp. no changes) in the
+nested tree.
+
+     <p>To view the details of the changes, type <kbd>RET</kbd> on a nested tree
+entry to open the corresponding changes buffer. To come back to the
+root of the project, type <code>^</code>.
+
+     <li>Then review the log message by typing <kbd>c</kbd> within the
+*tla-changes* buffer and edit it when needed.
+
+     <li>Finally commit by typing <kbd>C-c C-c</kbd>.
+     </ol>
+
+   <p>If you want to commit only changes made to a given number of files,
+select them with <kbd>m</kbd> in the *tla-changes* buffer (this also works from
+the *tla-inventory* buffer) before typing <kbd>c</kbd>. The list of files used
+for the selected files commit is the list of selected files in the
+buffer in which you typed <kbd>c</kbd>, at the time you press <kbd>C-c C-c</kbd> to
+commit. So, if you change your mind, you can go back and select/unselect
+some files before committing.
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Using-Bookmarks"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Transmit-patches-via-email">Transmit patches via email</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Committing-Files">Committing Files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.6 Using Bookmarks</h4>
+
+<p><a name="index-Working-in-a-project-4"></a><a name="index-Finding-missing-patches-5"></a>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Bookmarks-basics">Bookmarks basics</a>
+<li><a accesskey="2" href="#Using-bookmarks-for-distributed-development">Using bookmarks for distributed development</a>
+<li><a accesskey="3" href="#Bookmarks-groups">Bookmarks groups</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Bookmarks-basics"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Using-bookmarks-for-distributed-development">Using bookmarks for distributed development</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-Bookmarks">Using Bookmarks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-Bookmarks">Using Bookmarks</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.6.1 Bookmarks basics</h5>
+
+<p>Bookmarks are primarily used to keep a list of the most visited arch
+locations. Type <kbd>C-x T b</kbd> will show you the bookmarks
+buffer. It should be empty for now, but you can add some by typing <kbd>a</kbd>.
+
+   <p>Ah, it's a pain, you have to type the full location, like
+<code>Matthieu.Moy@imag.fr--public/dvc--main--0.1</code>, or just
+<code>Matthieu.Moy@imag.fr--public/dvc--main</code>.  No, let's do it the
+easy way: Go back to your archive list (<kbd>M-x tla-archives RET</kbd>),
+select the archive you want, then the category, branch, version. Now,
+just select Set a bookmark here in the menu, type the name, and that's
+it!
+
+   <p>You can view the details of bookmarks with <kbd>t</kbd>.
+
+<div class="node">
+<p><hr>
+<a name="Using-bookmarks-for-distributed-development"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Bookmarks-groups">Bookmarks groups</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Bookmarks-basics">Bookmarks basics</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-Bookmarks">Using Bookmarks</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.6.2 Using bookmarks for distributed development</h5>
+
+<p>Arch makes distributed development easy. Once you know that someone
+has a patch for you in their archive, you can very easily merge it
+with tla star-merge, or tla apply-changeset. But when several
+developers are working on the same project, it's a pain to check
+manually the missing patches in each archive.
+
+   <p>OK, we've got what you need!
+
+   <p>Add your own projects, and your contributors' projects too. Select
+several related projects with <kbd>m</kbd> (unselect with <kbd>u</kbd> or
+<kbd>M-del</kbd>). Make them partners with <kbd>M-p</kbd>. Now, with your cursor on
+a bookmark, view the uncommited changes, the missing patches from your
+archive and from your contributors with <kbd>M</kbd>. From this list, you
+will usually want to update your tree if some changesets are missing
+from your own archive (This is the <kbd>M u</kbd> keybinding), or star-merge
+from your contributors' archives (This is the <kbd>. S</kbd> keybinding).
+
+   <p>In this list, DVC will also highlight revisions not merged by other
+revisions. You can navigate through them with <kbd>N</kbd> and <kbd>P</kbd>. It
+is recommended to merge these patches first, because merging a
+revision A, and later merging a revision B which is a merge of A often
+results in conflicts.
+
+   <p>Note that if you want to share your list of partners with all the
+people having access to the project, you can just type <kbd>f w</kbd> to
+write the list of parthers to the file
+<code>{arch}/=partner-versions</code>, and your partners will just have to
+type <kbd>f r</kbd> to read the list from this file. Note that using this
+file, you will also be able to share your partner list with <code>aba</code>
+users, and potentially others in the future.
+
+   <p>If you are managing several projects at the same time (or one real
+project and several personal configuration directory), select several
+bookmarks with <kbd>m</kbd>, and type <kbd>M</kbd> to view all the missing
+patches from all contributors.
+
+   <p>The idea is that you will usually want to leave your office in the
+evening with an empty list here, and check for new items when you come
+back in the morning.
+
+<div class="node">
+<p><hr>
+<a name="Bookmarks-groups"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-bookmarks-for-distributed-development">Using bookmarks for distributed development</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Using-Bookmarks">Using Bookmarks</a>
+<br>
+</div>
+
+<h5 class="subsubsection">1.2.6.3 Bookmarks groups</h5>
+
+<p>Each bookmark can belong to a group of bookmarks. To make a group,
+select some bookmarks, and hit <kbd>a g</kbd>. Enter a group name. The
+selected bookmarks now belong to this group. To select a group, hit
+<kbd>* g</kbd> and enter the group you want to select.
+
+   <p>Developers will typically have one group for all the projects he or she
+has write access to (for example, group <code>mine</code>), and one group of
+bookmarks for each projects, including his partners' projects (I have a
+group <code>dvc</code>). Then, pressing <kbd>* g mine RET M</kbd> will show me all
+the missing patches for my projects. <kbd>* g dvc RET M</kbd> will tell me if my
+partners for <code>dvc</code> are up-to-date with my archive.
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Transmit-patches-via-email"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Using-Bookmarks">Using Bookmarks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#DVC-Tour">DVC Tour</a>
+<br>
+</div>
+
+<h4 class="subsection">1.2.7 Transmit patches via email</h4>
+
+<p>This section discusses a way to send/receive patches via email. That way
+you can create patches for a project without the need to create a branch
+for your contribution.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Send-patches-via-Gnus">Send patches via Gnus</a>
+<li><a accesskey="2" href="#Receive_002fApply-patches-via-Gnus">Receive/Apply patches via Gnus</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Send-patches-via-Gnus"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Receive_002fApply-patches-via-Gnus">Receive/Apply patches via Gnus</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Transmit-patches-via-email">Transmit patches via email</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Transmit-patches-via-email">Transmit patches via email</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.2.7.1 Send patches via Gnus</h5>
+
+<p>When you are tracking a project via GNU Arch, you can just edit your
+checked out working copy. When you have done that, just do <kbd>M-x
+tla-submit-patch RET</kbd>.
+
+   <p>That command calculates a changeset for your changes. That changeset is
+archived in a tarball and attached to a new created email.
+
+   <p>You can add a description of the changeset to the prepared email. After
+you have entered your description, just send the mail.
+
+   <p>The variable tla-submit-patch-mapping allows you to specify a list of
+rules to preselect the destination email address.
+
+   <p>The default setting for tla-submit-patch-mapping is here:
+<code>(((nil "dvc" nil nil nil) ("dvc-el-dev@gna.org" "dvc")))</code>
+
+   <p>It defines, that every branch of the dvc project should submit patches
+to <code>dvc-el-dev@gna.org</code>. The entry <code>"dvc"</code> just specifies,
+that the filename for the patch should start with <code>dvc</code>.
+
+<div class="node">
+<p><hr>
+<a name="Receive_002fApply-patches-via-Gnus"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Send-patches-via-Gnus">Send patches via Gnus</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Transmit-patches-via-email">Transmit patches via email</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.2.7.2 Receive/Apply patches via Gnus</h5>
+
+<p>To hook DVC to Gnus, put the following in your .emacs:
+<code>(tla-insinuate-gnus)</code>
+
+   <p>Now the <kbd>K t</kbd> binding is available as prefix key in Gnus summary
+buffers. This will also buttonize archives, categories, branches,
+version and revision names in the <code>*article*</code> buffer.
+
+   <p>The two important commands are:
+     <ol type=1 start=1>
+<li><kbd>K t v</kbd>: View the changeset
+<li><kbd>K t a</kbd>: Apply the changeset to one of your working trees
+        </ol>
+
+   <p>You can predefine the working tree, where you want to apply certain kind
+of patches via tla-apply-patch-mapping.
+
+   <p>The follwing code specifies <code>"~/work/myprg/dvc-dev/"</code> as default
+working tree for patches for the DVC project:
+
+   <p><code>(setq tla-apply-patch-mapping
+      '(((nil "dvc" nil  nil nil) "~/work/myprg/dvc-dev/")))</code>
+
+   <p>When you have applied the patch, you can commit the patch as usual. The
+new keybinding <kbd>C-c C-p</kbd> inserts a log message that is extracted
+from the received mail:
+     <ol type=1 start=1>
+<li>The subject is used as the patch summary line
+<li>The text between the log-start and the log-end markers in the mail specify the rest of the log message
+        </ol>
+
+<div class="node">
+<p><hr>
+<a name="Use-cases"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Trouble-Shooting">Trouble Shooting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#DVC-Tour">DVC Tour</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h3 class="section">1.3 How to use DVC depending on your role</h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Anarchic-development">Anarchic development</a>
+<li><a accesskey="2" href="#Star_002dshaped-development">Star-shaped development</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Anarchic-development"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Star_002dshaped-development">Star-shaped development</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Use-cases">Use cases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Use-cases">Use cases</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">1.3.1 Using DVC for anarchy-style development</h4>
+
+<!-- TODO -->
+<div class="node">
+<p><hr>
+<a name="Star_002dshaped-development"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Anarchic-development">Anarchic development</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Use-cases">Use cases</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">1.3.2 Using DVC for star-shaped development</h4>
+
+<p>By &ldquo;star-shaped development&rdquo;, we mean a patch flow in which each
+contributor only submit his patches to one version. This can be a
+completely centralized solution, with one master version, or a
+completely decentralized solution, with one master version for each
+subprojects (potentially hierarchic), the main version for the full
+project merging from the versions of the subprojects.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Maintainer">Maintainer</a>
+<li><a accesskey="2" href="#Missing-patches">Missing patches</a>
+<li><a accesskey="3" href="#Reviewing-patches">Reviewing patches</a>
+<li><a accesskey="4" href="#Patch_002dlog-Generation">Patch-log Generation</a>
+<li><a accesskey="5" href="#Contributor">Contributor</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Maintainer"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Missing-patches">Missing patches</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Star_002dshaped-development">Star-shaped development</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Star_002dshaped-development">Star-shaped development</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.3.2.1 Being a maintainer in a star-shaped development</h5>
+
+<p>We call &ldquo;maintainer&rdquo; the person in charge of merging patches from
+contributors in his archive. In the case of a subproject, the
+maintainer for a subproject is also a contributor for the main project.
+
+   <p>DVC can help you in this task:
+
+<ul class="menu">
+<li><a accesskey="1" href="#Missing-patches">Missing patches</a>
+<li><a accesskey="2" href="#Reviewing-patches">Reviewing patches</a>
+</ul>
+
+<div class="node">
+<p><hr>
+<a name="Missing-patches"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Reviewing-patches">Reviewing patches</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Maintainer">Maintainer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Star_002dshaped-development">Star-shaped development</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.3.2.2 Getting the list of missing patches</h5>
+
+<p>Unless merge requests are processed only on-demand, it is very usefull
+to know the list of patches committed by your contributors that you
+didn't merge already. This is done with the command <code>tla
+missing</code>. Usually, there is a list of regular contributors from which
+you often merge, and you may want to keep this list somewhere. In
+DVC, the best way to do it is probably through bookmarks See <a href="#Using-bookmarks-for-distributed-development">Using bookmarks for distributed development</a>, but you can also use the
+<code>{arch}/=partner-versions</code> (or the precious version
+<code>{arch}/+partner-versions</code>) file for that: It is a list of
+newline separated versions from which you often merge. The advantage
+of this solution is that it is also implemented by aba and potentially
+other tla front-ends in the future. Fortunately, you can keep it in
+sync with your bookmarks from the bookmark buffer, with the key
+sequences <kbd>f w</kbd> and <kbd>f r</kbd> (for respectively
+<code>tla-bookmarks-write-partners-to-file</code> and
+<code>tla-bookmarks-add-partners-from-file</code>).
+
+   <p>You can also run <kbd>C-u M-x tla-missing RET</kbd> to view manually the
+list of missing patches for a given version, off course, and you can
+use the keybindings available in the name reading engine (Get the list
+with <kbd>C-h</kbd>) to get quickly the fully qualified version name of a
+contributor.
+
+<div class="node">
+<p><hr>
+<a name="Reviewing-patches"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Patch_002dlog-Generation">Patch-log Generation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Missing-patches">Missing patches</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Star_002dshaped-development">Star-shaped development</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.3.2.3 Reviewing patches before merging them</h5>
+
+<p>A good maintainer should never merge patches blindly.
+
+   <p>From a revision list buffer, <kbd>RET</kbd> will open the log file,
+<kbd>=</kbd> will display the changeset.
+
+   <p>If you are unsure about something, or whish to reject the patch, type
+<kbd>M-x tla-revision-send-comments RET</kbd> to send a mail to the author
+of the patch.
+
+   <p>The usual way to merge is to put your cursor on the patch up to which
+you want to merge, and type <kbd>. s</kbd> to &ldquo;star-merge&rdquo; the patches
+from the common ancestor to this one. Other merge operators are
+available. <kbd>C-h m</kbd> and the menubar will give you a list.
+
+   <p>You can use &ldquo;sync-tree&rdquo; to reject a patch: After merging patches up
+to the direct ancestor of the patch to be rejected, type <kbd>M-x
+tla-revision-sync-tree RET</kbd>.
+
+<div class="node">
+<p><hr>
+<a name="Patch_002dlog-Generation"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Contributor">Contributor</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Reviewing-patches">Reviewing patches</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Star_002dshaped-development">Star-shaped development</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.3.2.4 Generating patch-logs after merging</h5>
+
+<p>DVC can generate the log file automatically after a merge. Just try
+<kbd>C-c C-m</kbd> in the log buffer. This will generate the body (using
+<code>tla log-for-merge</code>), and a summary line is also generated. The
+default format for the summary line should be good for a simple
+contributor, but it is highy recommanded to change it if you are the
+maintainer: The simplest way to do it is to set the
+<code>summary-format</code> field for the bookmark corresponding to the
+version you're managing (just type <kbd>s</kbd> on the bookmark of your
+choice in the bookmark buffer). A typical value would be <code>" [%s]"</code>:
+The generated summary line will then look like
+
+<pre class="verbatim">
+Summary:  [mark@dishevelled.net--2003-mst (patch 6-8)]
+</pre>
+
+   <p>That you can complete manually to something like
+
+<pre class="verbatim">
+Summary: Bugfix for regression tests [mark@dishevelled.net--2003-mst (patch 6-8)]
+</pre>
+
+   <p>More customization can be done: see the docstring for the variable
+
+<div class="node">
+<p><hr>
+<a name="Contributor"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Patch_002dlog-Generation">Patch-log Generation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Star_002dshaped-development">Star-shaped development</a>
+<br>
+</div>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">1.3.2.5 Being a contributor in a star-shaped development</h5>
+
+<!-- TODO -->
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Trouble-Shooting"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Customization">Customization</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Use-cases">Use cases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.4 Trouble Shooting</h3>
+
+<p>Due to some reasons TLA might fail. In order to investigate the reason
+you can switch to the buffers containing TLA output. Switch to the
+<code> *tla-logs</code> buffer (you can do that with
+<code>tla-open-internal-log-buffer</code>). You get the list of processes
+that have been ran since Emacs was started. Navigate with <kbd>n</kbd> and
+<kbd>p</kbd>, and swith to the corresponding process buffer with <kbd>RET</kbd>,
+to the error buffer with <kbd>e</kbd>, and to the buffer from which the
+process was started with <kbd>r</kbd>. Note that the process and output
+buffers are killed after some time if the variable
+<code>tla-number-of-dead-process-buffer</code> is non-nil. You also have a
+<code>Tla-Buffers</code> menu item in the <code>DVC</code> menu, on in your
+menu-bar on arch-related buffers to navigate between those.
+
+   <p>If you encounter an internal lisp error, enable backtrace generation by
+<kbd>M-x toggle-debug-on-error</kbd> and reproduce the error.  Now submit a
+bug report with <kbd>M-x dvc-submit-bug-report</kbd> and ensure the content
+of the buffer <code>*Backtrace*</code> is included.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Customization"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Internals">Internals</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Trouble-Shooting">Trouble Shooting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.5 Customization</h3>
+
+<p>Do a <kbd>M-x customize-group RET dvc RET</kbd> and browse the available
+options and modify them to suite your needs.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Internals"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Mailing-Lists">Mailing Lists</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Customization">Customization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.6 Internals</h3>
+
+<p>There is a <code>docs</code> sub-directory in the archive of <b>DVC</b>
+containing information for developers.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Mailing-Lists"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Wiki">Wiki</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Internals">Internals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.7 Mailing Lists</h3>
+
+<p>There is one mailing lists for <b>DVC</b>.
+
+   <p><code>dvc-el-dev@gna.org</code> intended for the discussion of development
+versions of <b>DVC</b>.  Users of development versions of <b>DVC</b> should
+subscribe to this list.  Bugs should also be reported to this list.
+
+   <p>See See <a href="#Known-Bugs">Known Bugs</a>. for instructions on submitting bug reports or
+feature requests.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Wiki"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Changes">Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Mailing-Lists">Mailing Lists</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.8 The DVC Wiki</h3>
+
+<p>A wiki for DVC can be found at
+
+   <p><a href="http://wiki.gnuarch.org/dvc">http://wiki.gnuarch.org/dvc</a>.
+
+   <p>This site is also the location of the GNU Arch wiki
+
+   <p><a href="http://wiki.gnuarch.org/FrontPage">http://wiki.gnuarch.org/FrontPage</a>
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Changes"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#The-Latest-Version">The Latest Version</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Wiki">Wiki</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.9 Changes in this Version</h3>
+
+<p>Development of DVC used to be very active, but has slowed down as the
+users seem happy with the current version. The mailing list is a good
+place learn about new features, but see also the docs/ANNOUNCEMENT file
+in the DVC distribution.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="The-Latest-Version"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#The-Future">The Future</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Changes">Changes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.10 The Latest Version</h3>
+
+<p class="noindent">Tarballs of <b>DVC</b> can be found at the following URL:
+
+   <p><a href="http://download.gna.org/dvc-el/">http://download.gna.org/dvc-el/</a>
+
+<p class="noindent">Development versions of <b>DVC</b> can be obtained from a public archive
+of one of the developers, e.g. from the initiator of <b>DVC</b>:
+
+     <dl>
+<dt><a href="<b>Location</b>"><b>Location</b></a><dd><b>Owner</b>
+
+     <br><dt><a href="http://arch.xsteve.at/2005">http://arch.xsteve.at/2005</a><dd>Stefan REICHOER: The project initiator. Author of the xhg backend.
+
+     <br><dt><a href="http://www-verimag.imag.fr/~moy/arch/public/">http://www-verimag.imag.fr/~moy/arch/public/</a><dd>Matthieu MOY: The "central" development archive. Author of the bzr backend.
+
+     <br><dt><a href="http://mani.sourceforge.jp/arch/dvc">http://mani.sourceforge.jp/arch/dvc</a><dd>Masatake YAMATO: Master of <code>xtla-browse.el</code>, integration into GNU Emacs ...
+
+     <br><dt><a href="http://www.robf.de/Hacking/arch/2005">http://www.robf.de/Hacking/arch/2005</a><dd>Robert WIDHOPF-FENK: maintainer of XEmacs compatibility
+
+     <br><dt><a href="http://members.iinet.net.au/~striggs/arch-2005/">http://members.iinet.net.au/~striggs/arch-2005/</a><dd>Mark TRIGGS
+
+     <!-- the following developers have no active 1.1 archive -->
+<!-- @item http://www.zamazal.org/Arch/ -->
+<!-- Milan ZAMAZAL -->
+<!-- @item http://sourcefrog.net/arch/mbp@@sourcefrog.net-2004 -->
+<!-- Martin POOL -->
+</dl>
+
+   <p>Users of development versions of <b>DVC</b> <b>should subscribe</b> to the
+<code>dvc-el-dev</code> mailing list.  See <a href="#Mailing-Lists">Mailing Lists</a>.
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="The-Future"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Thanks">Thanks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Latest-Version">The Latest Version</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.11 The Future</h3>
+
+<p>The future consists of Bugs and Features.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Known-Bugs">Known Bugs</a>:                   Known Bugs, and how to submit new ones
+<li><a accesskey="2" href="#TODO-List">TODO List</a>:                    The TODO List
+</ul>
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="Known-Bugs"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#TODO-List">TODO List</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Future">The Future</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Future">The Future</a>
+<br>
+</div>
+
+<h4 class="subsection">1.11.1 Known Bugs</h4>
+
+     <ol type=1 start=1>
+<li>Please file one, that should be listed here!
+     </ol>
+
+   <p>Bugs should be submitted to the <code>dvc-el-dev</code> mailing list
+(see <a href="#Mailing-Lists">Mailing Lists</a>).  To assist the developers, please include the
+version numbers of DVC and tla and how to reproduce the bug.  Further
+the content of process buffers or in case of a lisp error a backtrace
+might be helpful, see See <a href="#Trouble-Shooting">Trouble Shooting</a>. on how to get it.
+
+   <p>Please use <kbd>M-x dvc-submit-bug-report RET</kbd> for submitting or at least
+to get a template for the report which you copy to your favorite MUA.
+
+<!--  -->
+<div class="node">
+<p><hr>
+<a name="TODO-List"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Known-Bugs">Known Bugs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#The-Future">The Future</a>
+<br>
+</div>
+
+<h4 class="subsection">1.11.2 TODO List</h4>
+
+<h5 class="subsubheading">Near Future</h5>
+
+     <ul>
+<li>many bug fixes
+</ul>
+
+<h5 class="subsubheading">Not-So-Near Future</h5>
+
+     <ul>
+<li>no need for a command line invocation of <code>tla</code>. 
+</ul>
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Thanks"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Future">The Future</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.12 Thanks</h3>
+
+<!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Concept-Index"></a>Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-Index">Variable Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Thanks">Thanks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.13 Concept Index</h3>
+
+<ul class="index-cp" compact>
+<li><a href="#index-Finding-missing-patches-5">Finding missing patches</a>: <a href="#Using-Bookmarks">Using Bookmarks</a></li>
+<li><a href="#index-Hooking-into-GNU-Emacs-3">Hooking into GNU Emacs</a>: <a href="#Hooking-into-GNU-Emacs">Hooking into GNU Emacs</a></li>
+<li><a href="#index-Installation-1">Installation</a>: <a href="#Installation">Installation</a></li>
+<li><a href="#index-Makefile-2">Makefile</a>: <a href="#Installation">Installation</a></li>
+<li><a href="#index-Working-in-a-project-4">Working in a project</a>: <a href="#Using-Bookmarks">Using Bookmarks</a></li>
+</ul><!-- ============================================================================ -->
+<div class="node">
+<p><hr>
+<a name="Variable-Index"></a>Previous:&nbsp;<a rel="previous" accesskey="p" href="#Concept-Index">Concept Index</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+<br>
+</div>
+
+<h3 class="section">1.14 Variable Index</h3>
+
+
+
+<ul class="index-vr" compact>
+   </ul>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">1 DVC</a>
+<ul>
+<li><a href="#Installation">1.1 Installation</a>
+<ul>
+<li><a href="#Dependencies">1.1.1 Dependencies</a>
+<li><a href="#Hooking-into-GNU-Emacs">1.1.2 Hooking into GNU Emacs</a>
+</li></ul>
+<li><a href="#DVC-Tour">1.2 DVC Tour</a>
+<ul>
+<li><a href="#A-tutorial-guide-to-DVC">1.2.1 A tutorial guide to DVC</a>
+<ul>
+<li><a href="#Register-an-archive">1.2.1.1 Register an archive</a>
+<li><a href="#Bookmarking-a-project">1.2.1.2 Bookmarking a project</a>
+<li><a href="#Creating-a-branch-of-a-project-and-getting-a-project-tree">1.2.1.3 Creating a branch of a project and getting a project tree</a>
+<li><a href="#Finding-and-merging-missing-patches">1.2.1.4 Finding and merging missing patches</a>
+<li><a href="#Reviewing-and-committing-your-changes">1.2.1.5 Reviewing and committing your changes</a>
+</li></ul>
+<li><a href="#First-contact">1.2.2 First contact</a>
+<li><a href="#Archive-Browsing">1.2.3 Archive Browsing</a>
+<li><a href="#Editing-Files">1.2.4 Editing Files</a>
+<li><a href="#Committing-Files">1.2.5 Committing Files</a>
+<li><a href="#Using-Bookmarks">1.2.6 Using Bookmarks</a>
+<ul>
+<li><a href="#Bookmarks-basics">1.2.6.1 Bookmarks basics</a>
+<li><a href="#Using-bookmarks-for-distributed-development">1.2.6.2 Using bookmarks for distributed development</a>
+<li><a href="#Bookmarks-groups">1.2.6.3 Bookmarks groups</a>
+</li></ul>
+<li><a href="#Transmit-patches-via-email">1.2.7 Transmit patches via email</a>
+<ul>
+<li><a href="#Send-patches-via-Gnus">1.2.7.1 Send patches via Gnus</a>
+<li><a href="#Receive_002fApply-patches-via-Gnus">1.2.7.2 Receive/Apply patches via Gnus</a>
+</li></ul>
+</li></ul>
+<li><a href="#Use-cases">1.3 How to use DVC depending on your role</a>
+<ul>
+<li><a href="#Anarchic-development">1.3.1 Using DVC for anarchy-style development</a>
+<li><a href="#Star_002dshaped-development">1.3.2 Using DVC for star-shaped development</a>
+<ul>
+<li><a href="#Maintainer">1.3.2.1 Being a maintainer in a star-shaped development</a>
+<li><a href="#Missing-patches">1.3.2.2 Getting the list of missing patches</a>
+<li><a href="#Reviewing-patches">1.3.2.3 Reviewing patches before merging them</a>
+<li><a href="#Patch_002dlog-Generation">1.3.2.4 Generating patch-logs after merging</a>
+<li><a href="#Contributor">1.3.2.5 Being a contributor in a star-shaped development</a>
+</li></ul>
+</li></ul>
+<li><a href="#Trouble-Shooting">1.4 Trouble Shooting</a>
+<li><a href="#Customization">1.5 Customization</a>
+<li><a href="#Internals">1.6 Internals</a>
+<li><a href="#Mailing-Lists">1.7 Mailing Lists</a>
+<li><a href="#Wiki">1.8 The DVC Wiki</a>
+<li><a href="#Changes">1.9 Changes in this Version</a>
+<li><a href="#The-Latest-Version">1.10 The Latest Version</a>
+<li><a href="#The-Future">1.11 The Future</a>
+<ul>
+<li><a href="#Known-Bugs">1.11.1 Known Bugs</a>
+<li><a href="#TODO-List">1.11.2 TODO List</a>
+</li></ul>
+<li><a href="#Thanks">1.12 Thanks</a>
+<li><a href="#Concept-Index">1.13 Concept Index</a>
+<li><a href="#Variable-Index">1.14 Variable Index</a>
+</li></ul>
+</li></ul>
+</div>
+
+</body></html>
+
