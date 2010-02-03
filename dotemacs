@@ -88,3 +88,37 @@
 
 (load "typing-speed.el")
 
+
+(add-to-list 'load-path "~/.emacs.d/org-6.34c")
+(add-to-list 'load-path "~/.emacs.d/org-6.34c/lisp")
+
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done t)
+
+(setq org-agenda-files (list "~/org/etc.org"))
+
+;;; --- trac integration
+;; (require 'trac-wiki)
+;; (trac-wiki-define-project "project-trac"
+;; "https://trac.project.com/trac"; "username")
+;; (autoload 'trac-wiki "trac-wiki" "Trac wiki editing entry-point." t)
+;; ;;; - start orgstruct minor mode when trac-wiki is loaded.
+;; (add-hook 'trac-wiki-mode-hook 'turn-on-orgstruct)
+
+
+(add-hook 'dired-load-hook
+	  (function (lambda ()
+		      (load "dired-x")
+		      ;; Set global variables here.  For example:
+		      ;; (setq dired-guess-shell-gnutar "gtar")
+		      )))
+
+(add-hook 'dired-mode-hook
+	  (function (lambda ()
+		      ;; Set buffer-local variables here.  For example:
+		      (dired-omit-mode 1)
+		      )))
