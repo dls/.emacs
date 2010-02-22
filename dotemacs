@@ -99,7 +99,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 
-(setq org-agenda-files (list "~/org/etc.org"))
+(setq org-agenda-files (list "~/org/etc.org" "~/org/log.org"))
 
 ;;; --- trac integration
 ;; (require 'trac-wiki)
@@ -124,3 +124,8 @@
 		      )))
 
 (load-file "~/.emacs.d/dvc-snapshot/++build/dvc-load.el")
+
+
+(add-to-list 'load-path "~/.emacs.d/epg")
+(require 'epa-file)
+(epa-file-enable)
