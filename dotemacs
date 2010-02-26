@@ -240,14 +240,16 @@
 ;; (color-theme-renegade)
 
 
-;;(color-theme-calm-forest)
-;;(color-theme-dark-laptop)
+(color-theme-calm-forest)
+(color-theme-dark-laptop)
 
 
 ;; lethe sets up better non-text highlighting that tty-dark doesn't overwrite
 ;;(color-theme-lethe)
 ;;(color-theme-clarity)
 
+;;(require 'color-theme-billc)
+;;(color-theme-billc)
 
 (defun color-theme-djcb-dark ()
   "dark color theme created by djcb, Jan. 2009."

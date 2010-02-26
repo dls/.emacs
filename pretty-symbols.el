@@ -72,10 +72,10 @@ symbol."
      (?‱ "/10000"               nil)
 
      ;; I think these should be ʹ and ʺ... :-/
-     (?′ "[^']'[^']"            (tuareg-mode haskell-mode))
-     (?″ "''"                   (tuareg-mode haskell-mode))
-     (?‴ "'''"                  nil)
-     (?‵ "`"                    nil)
+;;     (?′ "[^']'[^']"            (tuareg-mode haskell-mode))
+;;     (?″ "''"                   (tuareg-mode haskell-mode))
+;;     (?‴ "'''"                  nil)
+;;     (?‵ "`"                    nil)
      (?‵ "\\s \\('\\)[a-zA-Z]"          (inferior-sml-mode))
      (?‶ "\\s \\(''\\)[a-zA-Z]"         (inferior-sml-mode))
      (?‷ "\\s \\('''\\)[a-zA-Z]"        (inferior-sml-mode))
@@ -100,7 +100,7 @@ symbol."
      (?∃ "\\<thereexists\\>"    nil)
      (?∅ "\\<NULL\\>"           (c-mode))
      (?∅ "\\<nil\\>"            (,@lispen tuareg-mode))
-     (?∅ "\\[\\]"               (haskell-mode))
+;;     (?∅ "\\[\\]"               (haskell-mode))
      (?∈ "\\<List.mem\\>"       (tuareg-mode))
      (?∈ "\\<for\\s +[^\\s ]+\\s +\\(in\\)\\>" (sh-mode))
      (?∈ "\\<member\\>"         (,@lispen))
