@@ -4,7 +4,6 @@
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(menu-bar-mode)
 (iswitchb-mode)
 (if (boundp 'tool-bar-mode)
     (tool-bar-mode))
@@ -316,3 +315,27 @@
 
 (require 'window-number)
 (window-number-mode)
+
+(scroll-bar-mode)
+
+;;(server-start)
+(require 'org-protocol)
+
+(set-face-attribute 'default nil :height 80)
+
+(require 'js2-mode)
+
+;; I hate tabs
+(setq-default indent-tabs-mode nil)
+
+(add-to-list 'load-path "~/.emacs.d/tuareg-mode")
+
+(setq auto-mode-alist (cons '("\\.ml\\w?" . tuareg-mode) auto-mode-alist))
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+
+(if (and (boundp 'window-system) window-system)
+    (when (string-match "XEmacs" emacs-version)
+       	(if (not (and (boundp 'mule-x-win-initted) mule-x-win-initted))
+            (require 'sym-lock))
+       	(require 'font-lock)))

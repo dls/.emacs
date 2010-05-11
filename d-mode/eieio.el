@@ -64,10 +64,10 @@ everything passes.  Exceptions occur when known incompatibilities are
 introduced."
   (when (string-match "\\([0-9]+\\)\\.\\([0-9]+\\)\\( ?beta ?\\([0-9]+\\)\\)?"
 		      eieio-version)
-    (let ((vmajor (string-to-int (match-string 1 eieio-version)))
-	  (vminor (string-to-int (match-string 2 eieio-version)))
+    (let ((vmajor (string-to-number (match-string 1 eieio-version)))
+	  (vminor (string-to-number (match-string 2 eieio-version)))
 	  (vbeta (match-string 4 eieio-version)))
-      (when vbeta (setq vbeta (string-to-int vbeta)))
+      (when vbeta (setq vbeta (string-to-number vbeta)))
       (or (> major vmajor)
 	  (and (= major vmajor) (> minor vminor))
 	  (and (= major vmajor) (= minor vminor)
@@ -378,7 +378,7 @@ OPTIONS-AND-DOC as the toplevel documentation for this class."
 		  (cons cname (aref (class-v 'eieio-default-superclass) class-children))))
 	;; save parent in child
 	(aset newc class-parent (list eieio-default-superclass))))
-    
+
     ;; turn this into a useable self-pointing symbol
     (set cname cname)
 
@@ -403,7 +403,7 @@ OPTIONS-AND-DOC as the toplevel documentation for this class."
 		  cname)
 	       (and (object-p obj)
 		    (object-of-class-p obj ,cname))))
-    
+
       ;; When using typep, (typep OBJ 'myclass) returns t for objects which
       ;; are subclasses of myclass.  For our predicates, however, it is
       ;; important for EIEIO to be backwards compatible, where
@@ -447,7 +447,7 @@ OPTIONS-AND-DOC as the toplevel documentation for this class."
 	     (custom  (plist-get field ':custom))
 	     (label   (plist-get field ':label))
 	     (customg (plist-get field ':group))
-	     
+
 	     (skip-nil (class-option-assoc options :allow-nil-initform))
 	     )
 
@@ -488,7 +488,7 @@ OPTIONS-AND-DOC as the toplevel documentation for this class."
 	;; Label is nil, or a string
 	(if (not (or (null label) (stringp label)))
 	    (signal 'invalid-slot-type (list ':label label)))
-	
+
 	;; Is there an initarg, but allocation of class?
 	(if (and initarg (eq alloc :class))
 	    (message "Class allocated slots do not need :initarg"))
@@ -527,9 +527,9 @@ OPTIONS-AND-DOC as the toplevel documentation for this class."
 		      (list 'eieio-oref 'this (list 'quote name))))
 	      ;; Thanks Pascal Bourguignon <pjb@informatimago.com>
 	      ;; For this complex macro.
-	      (eval (macroexpand 
+	      (eval (macroexpand
 		     (list  'defsetf acces '(widget) '(store)
-			    (list 'list ''eieio-oset 'widget 
+			    (list 'list ''eieio-oset 'widget
 				  (list 'quote (list 'quote acces)) 'store))))
 	      ;;`(defsetf ,acces (widget) (store) (eieio-oset widget ',cname store))
 	      )
@@ -1216,7 +1216,7 @@ can be used to set the value of the slot."
 ;;
 (defmacro object-class-fast (obj) "Return the class struct defining OBJ with no check."
   `(aref ,obj object-class))
-  
+
 (defun class-name (class) "Return a Lisp like symbol name for CLASS."
   (if (not (class-p class)) (signal 'wrong-type-argument (list 'class-p class)))
   ;; I think this is supposed to return a symbol, but to me CLASS is a symbol,
@@ -1540,14 +1540,14 @@ This should only be called from a generic function."
 	  (setq lambdas (cons tlambdas lambdas)
 		keys (cons method-static keys))
 	  )
-      
+
       ;; Non-static calls do all this stuff.
       (setq tlambdas
 	    (or (and mclass (eieio-generic-form method method-after mclass))
 		(eieio-generic-form method method-after nil)))
       (setq lambdas (cons tlambdas lambdas)
 	    keys (cons method-after keys))
-      
+
       (setq tlambdas
 	    (or (and mclass (eieio-generic-form method method-primary mclass))
 		(eieio-generic-form method method-primary nil)))
@@ -1844,13 +1844,13 @@ This is usually a symbol that starts with `:'."
 (defsetf eieio-oref (obj field) (store) (list 'eieio-oset obj field store))
 
 ;; The below setf method was written by Arnd Kohrs <kohrs@acm.org>
-(define-setf-method oref (obj field) 
-  (let ((obj-temp (gensym)) 
-	(field-temp (gensym)) 
-	(store-temp (gensym))) 
-    (list (list obj-temp field-temp) 
-	  (list obj `(quote ,field)) 
-	  (list store-temp) 
+(define-setf-method oref (obj field)
+  (let ((obj-temp (gensym))
+	(field-temp (gensym))
+	(store-temp (gensym)))
+    (list (list obj-temp field-temp)
+	  (list obj `(quote ,field))
+	  (list store-temp)
 	  (list 'set-slot-value obj-temp field-temp
 		store-temp)
 	  (list 'slot-value obj-temp field-temp))))
@@ -1982,7 +1982,7 @@ sure to call `call-next-method' first and modify the returned object."
     (if (not passname)
 	(save-match-data
 	  (if (string-match "-\\([0-9]+\\)" nm)
-	      (setq num (1+ (string-to-int (match-string 1 nm)))
+	      (setq num (1+ (string-to-number (match-string 1 nm)))
 		    nm (substring nm 0 (match-beginning 0))))
 	  (aset nobj object-name (concat nm "-" (int-to-string num))))
       (aset nobj object-name (car params)))

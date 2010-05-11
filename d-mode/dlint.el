@@ -23,7 +23,7 @@
 ;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ;;; Commentary:
-;; 
+;;
 ;; Run dlint, and highlight the problems in the buffer.
 ;;
 ;; This requires Dlint executable to be on the system path
@@ -61,8 +61,8 @@ If BUFFER is nil, use the current buffer."
       (goto-char (point-min))
       (while (re-search-forward dlint-output-regex nil t)
 	(setq errors (cons
-		      (cons (string-to-int (match-string 1))
-			    (cons (string-to-int (match-string 2))
+		      (cons (string-to-number (match-string 1))
+			    (cons (string-to-number (match-string 2))
 				  (match-string 3)))
 		      errors))))
     errors
@@ -282,7 +282,7 @@ Call the new entrie's activate method."
     ["Next Warning" dlint-next-buffer t]
     ["Previous Warning" dlint-prev-buffer t]
     ["Next New Warning" dlint-next-buffer-new t]
-    ["Previous New Warning" dlint-prev-buffer-new t]    
+    ["Previous New Warning" dlint-prev-buffer-new t]
    ))
 
 (defun dlint-emacs-popup-kludge (e)
