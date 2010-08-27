@@ -325,6 +325,14 @@
 
 (require 'js2-mode)
 
+(add-hook 'js2-mode-hook (lambda ()
+                           (js2-leave-mirror-mode)
+                           (js2-basic-offset 2)
+                           (js2-enter-indents-newline t)
+                           (js2-mode-escape-quotes nil)))
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 ;; I hate tabs
 (setq-default indent-tabs-mode nil)
 
@@ -334,8 +342,14 @@
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
 
-(if (and (boundp 'window-system) window-system)
-    (when (string-match "XEmacs" emacs-version)
-       	(if (not (and (boundp 'mule-x-win-initted) mule-x-win-initted))
-            (require 'sym-lock))
-       	(require 'font-lock)))
+(require 'sass-mode)
+
+(add-to-list 'load-path "~/.emacs.d/scala-mode")
+(load "scala-mode-auto.el")
+
+;;(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+
+;;; TODO -- get this working
+;;(load-file "~/.emacs.d/rudel/rudel-loaddefs.el")
+
+(add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))

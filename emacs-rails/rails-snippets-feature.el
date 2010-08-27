@@ -156,7 +156,7 @@
        ("input" "<input type=\"$${button}\" name=\"$${some_name}\" value=\"$${3}\"$${id}>" "input")
        ("head" "<head>\n$><meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\"/>\n$><title>$${title}</title>\n$>$.\n</head>" "head")
        ("h" "<h1 id=\"$${alpha}\">$${paste}</h1>" "heading")
-       ("ft" "<%= form_tag :action => \"$${update}\" %>\n$.\n<%= end_form_tag %>" "form_tag")
+       ("ft" "<% form_tag :action => \"$${update}\" do %>\n$.\n<% end %>" "form_tag")
        ("ff" "<%= form_for :$${item}, :action => \"$${update}\" %>\n$.\n<% end %>" "form_for")
        ("form" "<form action=\"$${action}\" method=\"$${post}\" accept-charset=\"utf-8\">\n$>$.\n\n$><p><input type=\"submit\" value=\"Continue &rarr;\"/></p>\n</form>" "form")
        ("dtht" "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n$>\"http://www.w3.org/TR/html4/strict.dtd\">\n" "HTML -- 4.01 Strict")
@@ -196,6 +196,8 @@
        rails-helper-minor-mode-abbrev-table
        ("rps" "render :partial => '$${item}', :status => $${500}" "render (partial, status)")
        ("rt" "render :text => '$${render}'" "render (text)")
+       ("rj" "render :text => $${render}.to_json" "render (json)")
+       ("ry" "render :text => $${render}.to_yaml" "render (yaml)")
        ("rtl" "render :text => '$${render}', :layout => '$${layoutname}'" "render (text, layout)")
        ("rtlt" "render :text => '$${render}', :layout => $${true}" "render (text, layout => true)")
        ("rts" "render :text => '$${render}', :status => $${401}" "render (text, status)")
