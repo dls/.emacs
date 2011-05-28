@@ -48,7 +48,6 @@
 ;; Silence the compiler.
 (cc-bytecomp-defun buffer-syntactic-context) ; XEmacs
 
-
 (defvar c-state-cache nil)
 (defvar c-in-literal-cache t)
 

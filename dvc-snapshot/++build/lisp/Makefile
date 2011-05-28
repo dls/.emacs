@@ -8,7 +8,7 @@ PACKAGE_BUGREPORT = dvc-dev@gna.org
 prefix = /usr/local
 RM   = @RM@
 ETAGS = etags
-MKDIR_P = ../../install-sh -c -d
+MKDIR_P = /bin/mkdir -p
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 

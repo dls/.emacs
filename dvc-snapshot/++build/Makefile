@@ -15,7 +15,7 @@ lispdir= $(prefix)/share/emacs/site-lisp/dvc
 
 SUBDIRS = lisp texinfo
 
-MKDIR_P = ../install-sh -c -d
+MKDIR_P = /bin/mkdir -p
 
 ##############################################################################
 all: dvc info dvc-load.el

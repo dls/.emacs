@@ -4,12 +4,16 @@
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+(setq indent-tabs-mode nil)
+(setq-default tab-width 2)
+
 (iswitchb-mode)
 (if (boundp 'tool-bar-mode)
     (tool-bar-mode))
 
 (global-set-key [?\M-\]] 'kill-paragraph)
 (global-set-key [?\M-3] 'call-last-kbd-macro)
+(global-set-key [?\M-9] 'delete-trailing-whitespace)
 (global-set-key [?\C-j] 'comment-indent-new-line)
 
 (put 'downcase-region 'disabled nil)
@@ -20,7 +24,7 @@
 (slime-setup)
 
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
-;(require 'git-emacs)
+(require 'git-emacs)
 
 (load "~/.emacs.d/haskell-mode/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -34,25 +38,40 @@
 (setq prolog-program-name "swipl")
 ;(setq prolog-consult-string "[user].\n")
 
-(add-to-list 'load-path "~/.emacs.d/cc-mode")
-;;(global-set-key [C-c C-l] 'compile)
+;; ---------------------------------------- START C/C++/D programming
+
+(setq c-default-style "linux"
+      c-basic-offset 2)
+
+(add-to-list 'load-path "~/.emacs.d/cc-mode-5.31.3")
+(require 'cc-mode)
+(global-set-key [C-c C-l] 'compile)
 (autoload 'awk-mode "cc-mode" nil t)
 
 (add-to-list 'load-path "~/.emacs.d/d-mode")
 (autoload 'd-mode "d-mode"
   "Major mode for editing D code." t)
-(setq auto-mode-alist (cons '( "\\.d\\'" . d-mode ) auto-mode-alist ))
+;; arg!
+(setq auto-mode-alist (cons '( "\\.d\\'" . c++-mode) auto-mode-alist ))
 (autoload 'dlint-minor-mode "dlint" nil t)
 (add-hook 'd-mode-hook (lambda () (dlint-minor-mode 1)))
 
-(add-to-list 'load-path "~/.emacs.d/ess/lisp")
-(require 'ess-site)
+;; ---------------------------------------- END C/C++/D programming
+
+(load "~/.emacs.d/mmm-mako.el")
+(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
+(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
 
 (defun word-count nil "Count words in buffer" (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
 
+(autoload 'camelCase-mode "camelCase-mode" nil t)
+
 (setq load-path (cons "~/.emacs.d/emacs-rails" load-path))
 (require 'rails)
+
+(add-hook 'ruby-mode-hook '(lambda () (camelCase-mode 1)))
+(add-hook 'python-mode-hook '(lambda () (camelCase-mode 1)))
 
 (require 'yaml-mode)
 
@@ -77,7 +96,7 @@
 (setq tramp-default-method "ssh")
 ;; /service2.retailinkjet.com:/home/dls/api.retailinkjet.com
 
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+;(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 (add-hook 'javascript-mode-hook 'javascript-custom-setup)
 (defun javascript-custom-setup ()
@@ -99,6 +118,9 @@
 (setq org-log-done t)
 
 (setq org-agenda-files (list "~/org/etc.org" "~/org/log.org"))
+
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
 
 ;;; --- trac integration
 ;; (require 'trac-wiki)
@@ -122,7 +144,7 @@
 		      (dired-omit-mode 1)
 		      )))
 
-(load-file "~/.emacs.d/dvc-snapshot/++build/dvc-load.el")
+;;(load-file "~/.emacs.d/dvc-snapshot/++build/dvc-load.el")
 
 
 (add-to-list 'load-path "~/.emacs.d/epg")
@@ -327,9 +349,11 @@
 
 (add-hook 'js2-mode-hook (lambda ()
                            (js2-leave-mirror-mode)
-                           (js2-basic-offset 2)
-                           (js2-enter-indents-newline t)
-                           (js2-mode-escape-quotes nil)))
+                           (add-hook 'before-save-hook 'delete-trailing-whitespace)
+                           (setq js2-basic-offset 2)
+                           (setq js2-enter-indents-newline t)
+                           (setq js2-bounce-indent-p t)
+                           (setq js2-mode-escape-quotes nil)))
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -344,12 +368,110 @@
 
 (require 'sass-mode)
 
+;;; ================================================================ SCALA START
+;;; outline taken from http://scala.sygneca.com/tools/emacs
+
 (add-to-list 'load-path "~/.emacs.d/scala-mode")
 (load "scala-mode-auto.el")
 
-;;(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+(defun scala-turnoff-indent-tabs-mode ()
+  (setq indent-tabs-mode nil))
+
+;; scala mode hooks
+(add-hook 'scala-mode-hook 'scala-turnoff-indent-tabs-mode)
+
+;; YASNIPPIT
+(require 'yasnippet-bundle)
+(yas/initialize)
+
+;; CEDET
+(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
+(load "~/.emacs.d/cedet-1.0/contrib/semantic-ectag-scala.el")
+;;(global-ede-mode 1)                    ; Enable the Project management system
+(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
+(global-srecode-minor-mode 1)            ; Enable template insertion menu
+(semantic-load-enable-primary-exuberent-ctags-support)
+
+;; ECB - yuck!
+;(add-to-list 'load-path "~/.emacs.d/ecb")
+;(require 'ecb)
+
+;; (custom-set-variables
+;;   ;; custom-set-variables was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(dabbrev-case-fold-search nil)
+;;  '(ecb-options-version "2.40")
+;;  '(global-semantic-decoration-mode nil nil (semantic-decorate-mode))
+;;  '(global-semantic-highlight-edits-mode nil nil (semantic-util-modes))
+;;  '(global-semantic-highlight-func-mode nil nil (semantic-util-modes))
+;;  '(global-semantic-idle-completions-mode t nil (semantic-idle))
+;;  '(global-semantic-idle-scheduler-mode nil nil (semantic-idle))
+;;  '(global-semantic-idle-summary-mode nil nil (semantic-idle))
+;;  '(global-semantic-idle-tag-highlight-mode nil nil (semantic-idle))
+;;  '(global-semantic-mru-bookmark-mode t nil (semantic-util-modes))
+;;  '(global-semantic-show-parser-state-mode nil nil (semantic-util-modes))
+;;  '(global-semantic-show-unmatched-syntax-mode nil nil (semantic-util-modes))
+;;  '(global-semantic-stickyfunc-mode nil nil (semantic-util-modes))
+;;  '(global-senator-minor-mode t nil (senator))
+;;  '(inhibit-startup-screen t)
+;;  '(semantic-complete-inline-analyzer-displayor-class (quote semantic-displayor-tooltip))
+;;  '(semantic-complete-inline-analyzer-idle-displayor-class (quote semantic-displayor-tooltip))
+;;  '(semantic-idle-scheduler-verbose-flag t)
+;;  '(semantic-imenu-sort-bucket-function (quote semantic-sort-tags-by-name-increasing))
+;;  '(semanticdb-global-mode t nil (semanticdb))
+;;  '(show-paren-mode t)
+;;  '(transient-mark-mode t)
+;;  '(which-function-mode nil))
+
+;; SBT
+(load "~/.emacs.d/sbt.el")
+
+;;; ================================================================ SCALA END
+
 
 ;;; TODO -- get this working
 ;;(load-file "~/.emacs.d/rudel/rudel-loaddefs.el")
 
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+
+;;(menu-bar-mode)
+
+
+(defun underscore-string (s &optional sep start)
+  "Convert CamelCase string S to lower case with word separator SEP.
+   Default for SEP is an underscore \"_\".
+
+   If third argument START is non-nil, convert words after that
+   index in STRING."
+  (let ((case-fold-search nil))
+    (while (string-match "[A-Z]" s (or start 1))
+      (setq s (replace-match (concat (or sep "_")
+                                     (downcase (match-string 0 s)))
+                             t nil s)))
+    (downcase s)))
+
+(defun mapcar-head (fn-head fn-rest list)
+  "Like MAPCAR, but applies a different function to the first element."
+  (if list
+      (cons (funcall fn-head (car list)) (mapcar fn-rest (cdr list)))))
+
+(defun camelize (s)
+  "Convert under_score string S to CamelCase string."
+  (mapconcat 'identity (mapcar
+                        '(lambda (word) (capitalize (downcase word)))
+                        (split-string s "_")) ""))
+
+(add-to-list 'load-path "~/.emacs.d/coffee-mode")
+(require 'coffee-mode)
+
+(custom-set-variables
+ '(inhibit-startup-screen t))
+
+
+(defun create-tags (dir-name)
+  "Create tags file."
+  (interactive "DDirectory: ")
+  (eshell-command
+   (format "find %s -type f -name \"*.[ch]\" | etags -L -" dir-name)))

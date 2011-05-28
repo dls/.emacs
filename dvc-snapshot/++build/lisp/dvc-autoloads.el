@@ -46,10 +46,10 @@
   (require 'dvc-utils))
 
 ;;;### (autoloads (baz-annotate baz-status-goto baz-branch) "baz"
-;;;;;;  "../../lisp/baz.el" (18352 54192))
+;;;;;;  "../../lisp/baz.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/baz.el
 
-(defvar baz-tla-only-commands (quote (tla-tag)) "\
+(defvar baz-tla-only-commands '(tla-tag) "\
 List of commands available only with tla.")
 
 (defun baz-make-alias-for-tla-commands nil "\
@@ -64,9 +64,9 @@ with baz. They're prefixed with baz- and have no alias." (interactive) (dolist (
 
 (baz-make-alias-for-tla-commands)
 
-(eval-after-load "tla" (quote (progn (defalias (quote baz--name-construct) (quote tla--name-construct)) (baz-make-alias-for-tla-commands))))
+(eval-after-load "tla" '(progn (defalias 'baz--name-construct 'tla--name-construct) (baz-make-alias-for-tla-commands)))
 
-(autoload (quote baz-branch) "baz" "\
+(autoload 'baz-branch "baz" "\
 Create a tag from SOURCE-REVISION to TAG-VERSION.
 Run baz branch.
 If SYNCHRONOUSLY is non-nil, the process for tagging runs synchronously.
@@ -74,14 +74,14 @@ Else it runs asynchronously.
 
 \(fn SOURCE-REVISION TAG-VERSION &optional CACHEREV SYNCHRONOUSLY)" t nil)
 
-(autoload (quote baz-status-goto) "baz" "\
+(autoload 'baz-status-goto "baz" "\
 Switch to status buffer or run `baz-dvc-status'.
 
 \(fn &optional ROOT AGAINST)" t nil)
 
-(defalias (quote baz-merge) (quote tla-star-merge))
+(defalias 'baz-merge 'tla-star-merge)
 
-(autoload (quote baz-annotate) "baz" "\
+(autoload 'baz-annotate "baz" "\
 Run \"baz annotate\" on FILE.
 
 Shows the result in a buffer, and create an annotation table for the
@@ -92,12 +92,12 @@ annotated file's buffer. This allows you to run `baz-trace-line' and
 
 ;;;***
 
-;;;### (autoloads nil "baz-dvc" "../../lisp/baz-dvc.el" (18344 22447))
+;;;### (autoloads nil "baz-dvc" "../../lisp/baz-dvc.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/baz-dvc.el
 
-(dvc-register-dvc (quote baz) "Bazaar 1")
+(dvc-register-dvc 'baz "Bazaar 1")
 
-(defalias (quote baz-dvc-command-version) (quote baz-command-version))
+(defalias 'baz-dvc-command-version 'baz-command-version)
 
 ;;;***
 
@@ -105,43 +105,43 @@ annotated file's buffer. This allows you to run `baz-trace-line' and
 ;;;;;;  bzr-resolved bzr-dvc-rename bzr-dvc-remove-files bzr-dvc-revert-files
 ;;;;;;  bzr-dvc-add-files bzr-add bzr-inventory bzr-delta bzr-dvc-diff
 ;;;;;;  bzr-diff-against bzr-update bzr-merge bzr-push bzr-pull bzr-checkout)
-;;;;;;  "bzr" "../../lisp/bzr.el" (19074 6970))
+;;;;;;  "bzr" "../../lisp/bzr.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr.el
 
-(autoload (quote bzr-checkout) "bzr" "\
+(autoload 'bzr-checkout "bzr" "\
 Run bzr checkout.
 
 \(fn BRANCH-LOCATION TO-LOCATION &optional LIGHTWEIGHT REVISION)" t nil)
 
-(autoload (quote bzr-pull) "bzr" "\
+(autoload 'bzr-pull "bzr" "\
 Run bzr pull.
 
 \(fn &optional REPO-PATH)" t nil)
 
-(autoload (quote bzr-push) "bzr" "\
+(autoload 'bzr-push "bzr" "\
 Run bzr push.
 When called with a prefix argument, add the --remember option
 
 \(fn &optional REPO-PATH)" t nil)
 
-(autoload (quote bzr-merge) "bzr" "\
+(autoload 'bzr-merge "bzr" "\
 Run bzr merge.
 
 \(fn &optional REPO-PATH)" t nil)
 
-(autoload (quote bzr-update) "bzr" "\
+(autoload 'bzr-update "bzr" "\
 Run bzr update.
 
 \(fn &optional PATH)" t nil)
 
-(autoload (quote bzr-diff-against) "bzr" "\
+(autoload 'bzr-diff-against "bzr" "\
 Run \"bzr diff\" against a particular revision.
 
 Same as `bzr-dvc-diff', but the interactive prompt is different.
 
 \(fn AGAINST &optional PATH DONT-SWITCH)" t nil)
 
-(autoload (quote bzr-dvc-diff) "bzr" "\
+(autoload 'bzr-dvc-diff "bzr" "\
 Run \"bzr diff\".
 
 AGAINST must be a DVC revision id ('bzr number, last:N,
@@ -151,44 +151,44 @@ TODO: DONT-SWITCH is currently ignored.
 
 \(fn &optional AGAINST PATH DONT-SWITCH)" t nil)
 
-(autoload (quote bzr-delta) "bzr" "\
+(autoload 'bzr-delta "bzr" "\
 Run bzr diff -r BASE..MODIFIED.
 
 TODO: dont-switch is currently ignored.
 
 \(fn BASE MODIFIED &optional DONT-SWITCH EXTRA-ARG)" nil nil)
 
-(autoload (quote bzr-inventory) "bzr" "\
+(autoload 'bzr-inventory "bzr" "\
 Run \"bzr inventory\".
 
 \(fn)" t nil)
 
-(autoload (quote bzr-add) "bzr" "\
+(autoload 'bzr-add "bzr" "\
 Adds FILE to the repository.
 
 \(fn FILE)" t nil)
 
-(autoload (quote bzr-dvc-add-files) "bzr" "\
+(autoload 'bzr-dvc-add-files "bzr" "\
 Run bzr add.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote bzr-dvc-revert-files) "bzr" "\
+(autoload 'bzr-dvc-revert-files "bzr" "\
 Run bzr revert.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote bzr-dvc-remove-files) "bzr" "\
+(autoload 'bzr-dvc-remove-files "bzr" "\
 Run bzr remove.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote bzr-dvc-rename) "bzr" "\
+(autoload 'bzr-dvc-rename "bzr" "\
 Run bzr rename.
 
 \(fn FROM TO &optional AFTER)" t nil)
 
-(autoload (quote bzr-resolved) "bzr" "\
+(autoload 'bzr-resolved "bzr" "\
 Command to delete .rej file after conflicts resolution.
 Asks confirmation if the file still has diff3 markers.
 Then, run \"bzr resolve\".
@@ -197,7 +197,7 @@ TODO: should share some code with `tla-resolved'.
 
 \(fn FILE)" t nil)
 
-(autoload (quote bzr-revision-get-last-revision) "bzr" "\
+(autoload 'bzr-revision-get-last-revision "bzr" "\
 Insert the content of FILE in LAST-REVISION, in current buffer.
 
 LAST-REVISION looks like
@@ -205,12 +205,12 @@ LAST-REVISION looks like
 
 \(fn FILE LAST-REVISION)" nil nil)
 
-(autoload (quote bzr-command-version) "bzr" "\
+(autoload 'bzr-command-version "bzr" "\
 Run bzr version.
 
 \(fn)" t nil)
 
-(autoload (quote bzr-info) "bzr" "\
+(autoload 'bzr-info "bzr" "\
 Run bzr info.
 
 \(fn)" t nil)
@@ -222,10 +222,10 @@ list of (PATH (EMAIL BRANCH-NICK (EXTRA-ARG ...)))")
 
 ;;;### (autoloads (bzr-default-global-argument bzr-prepare-environment
 ;;;;;;  bzr-tree-id bzr-branch-root bzr-tree-root) "bzr-core" "../../lisp/bzr-core.el"
-;;;;;;  (18637 47803))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr-core.el
 
-(autoload (quote bzr-tree-root) "bzr-core" "\
+(autoload 'bzr-tree-root "bzr-core" "\
 Return the tree root for LOCATION, nil if not in a local tree.
 Computation is done from withing Emacs, by looking at a .bzr/
 directory in a parent buffer of LOCATION.  This is therefore very
@@ -236,7 +236,7 @@ bzr-managed tree (but return nil).
 
 \(fn &optional LOCATION NO-ERROR INTERACTIVE)" t nil)
 
-(autoload (quote bzr-branch-root) "bzr-core" "\
+(autoload 'bzr-branch-root "bzr-core" "\
 Return the branch root for LOCATION, nil if not in a branch.
 
 This function allows DVC relevant functions (e.g., log) to work
@@ -244,18 +244,18 @@ on bzr branches with no tree.
 
 \(fn &optional LOCATION NO-ERROR INTERACTIVE)" t nil)
 
-(autoload (quote bzr-tree-id) "bzr-core" "\
+(autoload 'bzr-tree-id "bzr-core" "\
 Call \"bzr log -r 1\" to get the tree-id.
 Does anyone know of a better way to get this info?
 
 \(fn)" t nil)
 
-(autoload (quote bzr-prepare-environment) "bzr-core" "\
+(autoload 'bzr-prepare-environment "bzr-core" "\
 Prepare the environment to run bzr.
 
 \(fn ENV)" nil nil)
 
-(autoload (quote bzr-default-global-argument) "bzr-core" "\
+(autoload 'bzr-default-global-argument "bzr-core" "\
 Disable aliases.
 
 \(fn)" nil nil)
@@ -263,33 +263,33 @@ Disable aliases.
 ;;;***
 
 ;;;### (autoloads (bzr-dvc-name-construct bzr-dvc-search-file-in-diff)
-;;;;;;  "bzr-dvc" "../../lisp/bzr-dvc.el" (18652 15254))
+;;;;;;  "bzr-dvc" "../../lisp/bzr-dvc.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr-dvc.el
 
-(dvc-register-dvc (quote bzr) "Bazaar 2")
+(dvc-register-dvc 'bzr "Bazaar 2")
 
-(defalias (quote bzr-dvc-init) (quote bzr-init))
+(defalias 'bzr-dvc-init 'bzr-init)
 
-(defalias (quote bzr-dvc-inventory) (quote bzr-inventory))
+(defalias 'bzr-dvc-inventory 'bzr-inventory)
 
-(defalias (quote bzr-dvc-pull) (quote bzr-pull))
+(defalias 'bzr-dvc-pull 'bzr-pull)
 
-(defalias (quote bzr-dvc-push) (quote bzr-push))
+(defalias 'bzr-dvc-push 'bzr-push)
 
-(defalias (quote bzr-dvc-merge) (quote bzr-merge))
+(defalias 'bzr-dvc-merge 'bzr-merge)
 
-(defalias (quote bzr-dvc-submit-patch) (quote bzr-submit-patch))
+(defalias 'bzr-dvc-submit-patch 'bzr-submit-patch)
 
-(defalias (quote bzr-dvc-add) (quote bzr-add))
+(defalias 'bzr-dvc-add 'bzr-add)
 
-(defalias (quote bzr-dvc-log-edit-done) (quote bzr-log-edit-done))
+(defalias 'bzr-dvc-log-edit-done 'bzr-log-edit-done)
 
-(autoload (quote bzr-dvc-search-file-in-diff) "bzr-dvc" "\
+(autoload 'bzr-dvc-search-file-in-diff "bzr-dvc" "\
 Not documented
 
 \(fn FILE)" nil nil)
 
-(autoload (quote bzr-dvc-name-construct) "bzr-dvc" "\
+(autoload 'bzr-dvc-name-construct "bzr-dvc" "\
 Not documented
 
 \(fn BACK-END-REVISION)" nil nil)
@@ -298,17 +298,17 @@ Not documented
 The filename, used to store the log message before commiting.
 Usually that file is placed in the tree-root of the working tree.")
 
-(defalias (quote bzr-dvc-command-version) (quote bzr-command-version))
+(defalias 'bzr-dvc-command-version 'bzr-command-version)
 
-(defalias (quote bzr-dvc-save-diff) (quote bzr-save-diff))
+(defalias 'bzr-dvc-save-diff 'bzr-save-diff)
 
 ;;;***
 
 ;;;### (autoloads (bzr-insinuate-gnus) "bzr-gnus" "../../lisp/bzr-gnus.el"
-;;;;;;  (18661 30199))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr-gnus.el
 
-(autoload (quote bzr-insinuate-gnus) "bzr-gnus" "\
+(autoload 'bzr-insinuate-gnus "bzr-gnus" "\
 Integrate bzr into Gnus.
 
 \(fn)" t nil)
@@ -316,10 +316,10 @@ Integrate bzr into Gnus.
 ;;;***
 
 ;;;### (autoloads (bzr-dvc-missing bzr-changelog bzr-log-remote bzr-log)
-;;;;;;  "bzr-revision" "../../lisp/bzr-revision.el" (18538 58089))
+;;;;;;  "bzr-revision" "../../lisp/bzr-revision.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr-revision.el
 
-(autoload (quote bzr-log) "bzr-revision" "\
+(autoload 'bzr-log "bzr-revision" "\
 Run bzr log for PATH and show only the first line of the log message.
 LAST-N revisions are shown (default dvc-log-last-n). Note that the
 LAST-N restriction is applied first, so if both PATH and LAST-N are
@@ -327,17 +327,17 @@ specified, fewer than LAST-N revisions may be shown.
 
 \(fn PATH LAST-N)" t nil)
 
-(autoload (quote bzr-log-remote) "bzr-revision" "\
+(autoload 'bzr-log-remote "bzr-revision" "\
 Run bzr log against a remote location.
 
 \(fn LOCATION)" t nil)
 
-(autoload (quote bzr-changelog) "bzr-revision" "\
+(autoload 'bzr-changelog "bzr-revision" "\
 Run bzr log and show the full log message.
 
 \(fn &optional PATH)" t nil)
 
-(autoload (quote bzr-dvc-missing) "bzr-revision" "\
+(autoload 'bzr-dvc-missing "bzr-revision" "\
 Run bzr missing.
 
 \(fn &optional OTHER)" t nil)
@@ -345,10 +345,10 @@ Run bzr missing.
 ;;;***
 
 ;;;### (autoloads (bzr-submit-patch bzr-prepare-patch-submission)
-;;;;;;  "bzr-submit" "../../lisp/bzr-submit.el" (18552 2375))
+;;;;;;  "bzr-submit" "../../lisp/bzr-submit.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/bzr-submit.el
 
-(autoload (quote bzr-prepare-patch-submission) "bzr-submit" "\
+(autoload 'bzr-prepare-patch-submission "bzr-submit" "\
 Submit a patch to a bzr working copy (at BZR-TREE-ROOT) via email.
 With this feature it is not necessary to branch a bzr archive.
 You simply edit your checked out copy from your project and call this function.
@@ -363,7 +363,7 @@ For an example, how to use this function see: `bzr-submit-patch'.
 
 \(fn BZR-TREE-ROOT PATCH-BASE-NAME EMAIL VERSION-STRING &optional DESCRIPTION SUBJECT PROMPT-FILES)" t nil)
 
-(autoload (quote bzr-submit-patch) "bzr-submit" "\
+(autoload 'bzr-submit-patch "bzr-submit" "\
 Submit a patch for the current bzr project.
 With this feature it is not necessary to tag an arch archive.
 You simply edit your checked out copy and call this function.
@@ -380,10 +380,10 @@ After the user has sent the message, `bzr-submit-patch-done' is called.
 ;;;***
 
 ;;;### (autoloads (dvc-about) "dvc-about" "../../lisp/dvc-about.el"
-;;;;;;  (18552 2375))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-about.el
 
-(autoload (quote dvc-about) "dvc-about" "\
+(autoload 'dvc-about "dvc-about" "\
 Displays a welcome message.
 
 \(fn)" t nil)
@@ -392,21 +392,21 @@ Displays a welcome message.
 
 ;;;### (autoloads (dvc-bookmarks-current-push-locations dvc-bookmarks-dired-add-project
 ;;;;;;  dvc-bookmarks) "dvc-bookmarks" "../../lisp/dvc-bookmarks.el"
-;;;;;;  (19289 3128))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-bookmarks.el
 
-(autoload (quote dvc-bookmarks) "dvc-bookmarks" "\
+(autoload 'dvc-bookmarks "dvc-bookmarks" "\
 Display the *dvc-bookmarks* buffer.
 With prefix argument ARG, reload the bookmarks file from disk.
 
 \(fn &optional ARG)" t nil)
 
-(autoload (quote dvc-bookmarks-dired-add-project) "dvc-bookmarks" "\
+(autoload 'dvc-bookmarks-dired-add-project "dvc-bookmarks" "\
 Add a DVC bookmark from dired
 
 \(fn)" t nil)
 
-(autoload (quote dvc-bookmarks-current-push-locations) "dvc-bookmarks" "\
+(autoload 'dvc-bookmarks-current-push-locations "dvc-bookmarks" "\
 Not documented
 
 \(fn)" nil nil)
@@ -414,10 +414,10 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (dvc-submit-bug-report) "dvc-bug" "../../lisp/dvc-bug.el"
-;;;;;;  (17951 18413))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-bug.el
 
-(autoload (quote dvc-submit-bug-report) "dvc-bug" "\
+(autoload 'dvc-submit-bug-report "dvc-bug" "\
 Submit a bug report, with pertinent information to the dvc-dev list.
 
 \(fn)" t nil)
@@ -425,10 +425,10 @@ Submit a bug report, with pertinent information to the dvc-dev list.
 ;;;***
 
 ;;;### (autoloads (dvc-current-file-list) "dvc-core" "../../lisp/dvc-core.el"
-;;;;;;  (19093 57751))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-core.el
 
-(autoload (quote dvc-current-file-list) "dvc-core" "\
+(autoload 'dvc-current-file-list "dvc-core" "\
 Return a list of currently active files.
 When in dired mode, return the marked files or the file under point.
 In a legacy DVC mode, return `dvc-buffer-marked-file-list' if non-nil.
@@ -442,8 +442,8 @@ otherwise the result depends on SELECTION-MODE:
 
 ;;;***
 
-;;;### (autoloads nil "dvc-defs" "../../lisp/dvc-defs.el" (19104
-;;;;;;  28510))
+;;;### (autoloads nil "dvc-defs" "../../lisp/dvc-defs.el" (19342
+;;;;;;  24247))
 ;;; Generated autoloads from ../../lisp/dvc-defs.el
 
 (defvar dvc-registered-backends nil "\
@@ -452,15 +452,15 @@ The list of registered dvc backends.")
 ;;;***
 
 ;;;### (autoloads (dvc-dvc-file-diff dvc-file-ediff) "dvc-diff" "../../lisp/dvc-diff.el"
-;;;;;;  (19153 12779))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-diff.el
 
-(autoload (quote dvc-file-ediff) "dvc-diff" "\
+(autoload 'dvc-file-ediff "dvc-diff" "\
 Run ediff of FILE (default current buffer file) against last revision.
 
 \(fn FILE)" t nil)
 
-(autoload (quote dvc-dvc-file-diff) "dvc-diff" "\
+(autoload 'dvc-dvc-file-diff "dvc-diff" "\
 Default for back-end-specific file diff. View changes in FILE
 between BASE (default last-revision) and MODIFIED (default
 workspace version).
@@ -470,10 +470,10 @@ workspace version).
 ;;;***
 
 ;;;### (autoloads (dvc-insinuate-gnus) "dvc-gnus" "../../lisp/dvc-gnus.el"
-;;;;;;  (19074 6971))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-gnus.el
 
-(autoload (quote dvc-insinuate-gnus) "dvc-gnus" "\
+(autoload 'dvc-insinuate-gnus "dvc-gnus" "\
 Insinuate Gnus for each registered DVC back-end.
 
 Runs (<backend>-insinuate-gnus) for each registered back-end having
@@ -491,17 +491,17 @@ K t p `dvc-gnus-article-apply-patch-with-selected-destination'
 ;;;***
 
 ;;;### (autoloads (dvc-add-log-entry dvc-dvc-log-edit dvc-log-edit-mode)
-;;;;;;  "dvc-log" "../../lisp/dvc-log.el" (19066 54800))
+;;;;;;  "dvc-log" "../../lisp/dvc-log.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-log.el
 
-(autoload (quote dvc-log-edit-mode) "dvc-log" "\
+(autoload 'dvc-log-edit-mode "dvc-log" "\
 Major Mode to edit DVC log messages.
 Commands:
 \\{dvc-log-edit-mode-map}
 
 \(fn)" t nil)
 
-(autoload (quote dvc-dvc-log-edit) "dvc-log" "\
+(autoload 'dvc-dvc-log-edit "dvc-log" "\
 Edit the log file for tree ROOT before a commit.
 
 OTHER_FRAME if non-nil puts log edit buffer in a separate frame.
@@ -510,7 +510,7 @@ is reused.
 
 \(fn ROOT OTHER-FRAME NO-INIT)" nil nil)
 
-(autoload (quote dvc-add-log-entry) "dvc-log" "\
+(autoload 'dvc-add-log-entry "dvc-log" "\
 Add new ChangeLog style entry to the current DVC log-edit buffer.
 If OTHER-FRAME xor `dvc-log-edit-other-frame' is non-nil,
 show log-edit buffer in other frame.
@@ -520,15 +520,15 @@ show log-edit buffer in other frame.
 ;;;***
 
 ;;;### (autoloads (dvc-call dvc-apply) "dvc-register" "../../lisp/dvc-register.el"
-;;;;;;  (18575 50375))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-register.el
 
-(autoload (quote dvc-apply) "dvc-register" "\
+(autoload 'dvc-apply "dvc-register" "\
 Apply ARGS to the `dvc-current-active-dvc' concated with POSTFIX.
 
 \(fn POSTFIX &rest ARGS)" nil nil)
 
-(autoload (quote dvc-call) "dvc-register" "\
+(autoload 'dvc-call "dvc-register" "\
 Call the function specified by concatenating `dvc-current-active-dvc' and
 POSTFIX, with arguments ARGS.
 
@@ -537,10 +537,10 @@ POSTFIX, with arguments ARGS.
 ;;;***
 
 ;;;### (autoloads (dvc-load-state dvc-save-state) "dvc-state" "../../lisp/dvc-state.el"
-;;;;;;  (18575 50375))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-state.el
 
-(autoload (quote dvc-save-state) "dvc-state" "\
+(autoload 'dvc-save-state "dvc-state" "\
 Save variables from VARS list to file STATE-FILE.
 The default for VARS is `dvc-state-variables-list'
 The default for STATE-FILE is `dvc-state-file-name'.
@@ -551,7 +551,7 @@ The file will contain a setq setting the vars during loading by
 
 \(fn &optional VARS STATE-FILE PP)" nil nil)
 
-(autoload (quote dvc-load-state) "dvc-state" "\
+(autoload 'dvc-load-state "dvc-state" "\
 Load STATE-FILE (default `dvc-state-file-name`), i.e. evaluate its content.
 
 \(fn &optional STATE-FILE)" nil nil)
@@ -559,10 +559,10 @@ Load STATE-FILE (default `dvc-state-file-name`), i.e. evaluate its content.
 ;;;***
 
 ;;;### (autoloads (dvc-tips-popup) "dvc-tips" "../../lisp/dvc-tips.el"
-;;;;;;  (18552 2375))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-tips.el
 
-(autoload (quote dvc-tips-popup) "dvc-tips" "\
+(autoload 'dvc-tips-popup "dvc-tips" "\
 Pop up a buffer with a tip message.
 
 Don't use this function from Xtla. Use `dvc-tips-popup-maybe'
@@ -573,10 +573,10 @@ instead.
 ;;;***
 
 ;;;### (autoloads (dvc-enable-prefix-key dvc-prefix-key) "dvc-ui"
-;;;;;;  "../../lisp/dvc-ui.el" (19074 6971))
+;;;;;;  "../../lisp/dvc-ui.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-ui.el
 
-(eval-and-compile (require (quote easymenu)))
+(eval-and-compile (require 'easymenu))
 
 (defvar dvc-key-help 63)
 
@@ -610,7 +610,7 @@ instead.
 
 (defvar dvc-key-file-prefix 102)
 
-(defun dvc-key-group (prefix &rest keys) (apply (quote vector) prefix keys))
+(defun dvc-key-group (prefix &rest keys) (apply 'vector prefix keys))
 
 (defun dvc-prefix-file (&rest keys) (dvc-key-group dvc-key-file-prefix keys))
 
@@ -650,7 +650,7 @@ instead.
 
 (defvar dvc-keyvec-show-bookmark (vector dvc-key-show-bookmark))
 
-(defvar dvc-global-keymap (let ((map (make-sparse-keymap))) (define-key map [85] (quote tla-undo)) (define-key map [82] (quote tla-redo)) (define-key map [116] (quote tla-tag-insert)) (define-key map [114] (quote tla-tree-revisions)) (define-key map [(meta 108)] (quote tla-tree-lint)) (define-key map [112] (quote dvc-submit-patch)) (define-key map dvc-keyvec-log-entry (quote dvc-add-log-entry)) (define-key map [65] (quote tla-archives)) (define-key map dvc-keyvec-file-diff (quote dvc-file-diff)) (define-key map dvc-keyvec-ediff (quote dvc-file-ediff)) (define-key map dvc-keyvec-diff (quote dvc-diff)) (define-key map dvc-keyvec-status (quote dvc-status)) (define-key map dvc-keyvec-commit (quote dvc-log-edit)) (define-key map dvc-keyvec-inventory (quote dvc-inventory)) (define-key map dvc-keyvec-logs (quote dvc-log)) (define-key map [108] (quote dvc-changelog)) (define-key map [73] (quote dvc-init)) (define-key map [67] (quote dvc-clone)) (define-key map [70] (quote dvc-pull)) (define-key map [80] (quote dvc-push)) (define-key map dvc-keyvec-update (quote dvc-update)) (define-key map [109] (quote dvc-missing)) (define-key map [77] (quote dvc-merge)) (define-key map dvc-keyvec-show-bookmark (quote dvc-bookmarks)) (define-key map dvc-keyvec-help (quote tla-help)) (define-key map (dvc-prefix-branch 99) (quote dvc-create-branch)) (define-key map (dvc-prefix-branch 115) (quote dvc-select-branch)) (define-key map (dvc-prefix-branch 108) (quote dvc-list-branches)) (define-key map (dvc-prefix-file 97) (quote dvc-add-files)) (define-key map (dvc-prefix-file 68) (quote dvc-remove-files)) (define-key map (dvc-prefix-file 82) (quote dvc-revert-files)) (define-key map (dvc-prefix-file 77) (quote dvc-rename)) (define-key map (dvc-prefix-file 88) (quote dvc-purge-files)) (define-key map (dvc-prefix-file 61) (quote dvc-file-diff)) (define-key map (dvc-prefix-view-buffer 112) (quote dvc-show-process-buffer)) (define-key map (dvc-prefix-view-buffer 101) (quote dvc-show-last-error-buffer)) (define-key map (dvc-prefix-view-buffer 108) (quote dvc-open-internal-log-buffer)) (define-key map (dvc-prefix-view-buffer dvc-key-diff) (quote tla-changes-goto)) (define-key map (dvc-prefix-view-buffer dvc-key-status) (quote baz-status-goto)) (define-key map (dvc-prefix-view-buffer dvc-key-inventory) (quote tla-inventory-goto)) (define-key map (dvc-prefix-view-buffer 76) (quote tla-tree-lint-goto)) (define-key map (dvc-prefix-view-buffer 114) (quote tla-tree-revisions-goto)) (define-key map (dvc-prefix-kill-ring 97) (quote tla-save-archive-to-kill-ring)) (define-key map (dvc-prefix-kill-ring 118) (quote tla-save-version-to-kill-ring)) (define-key map (dvc-prefix-kill-ring 114) (quote tla-save-revision-to-kill-ring)) map) "\
+(defvar dvc-global-keymap (let ((map (make-sparse-keymap))) (define-key map [85] 'tla-undo) (define-key map [82] 'tla-redo) (define-key map [116] 'tla-tag-insert) (define-key map [114] 'tla-tree-revisions) (define-key map [(meta 108)] 'tla-tree-lint) (define-key map [112] 'dvc-submit-patch) (define-key map dvc-keyvec-log-entry 'dvc-add-log-entry) (define-key map [65] 'tla-archives) (define-key map dvc-keyvec-file-diff 'dvc-file-diff) (define-key map dvc-keyvec-ediff 'dvc-file-ediff) (define-key map dvc-keyvec-diff 'dvc-diff) (define-key map dvc-keyvec-status 'dvc-status) (define-key map dvc-keyvec-commit 'dvc-log-edit) (define-key map dvc-keyvec-inventory 'dvc-inventory) (define-key map dvc-keyvec-logs 'dvc-log) (define-key map [108] 'dvc-changelog) (define-key map [73] 'dvc-init) (define-key map [67] 'dvc-clone) (define-key map [70] 'dvc-pull) (define-key map [80] 'dvc-push) (define-key map dvc-keyvec-update 'dvc-update) (define-key map [109] 'dvc-missing) (define-key map [77] 'dvc-merge) (define-key map dvc-keyvec-show-bookmark 'dvc-bookmarks) (define-key map dvc-keyvec-help 'tla-help) (define-key map (dvc-prefix-branch 99) 'dvc-create-branch) (define-key map (dvc-prefix-branch 115) 'dvc-select-branch) (define-key map (dvc-prefix-branch 108) 'dvc-list-branches) (define-key map (dvc-prefix-file 97) 'dvc-add-files) (define-key map (dvc-prefix-file 68) 'dvc-remove-files) (define-key map (dvc-prefix-file 82) 'dvc-revert-files) (define-key map (dvc-prefix-file 77) 'dvc-rename) (define-key map (dvc-prefix-file 88) 'dvc-purge-files) (define-key map (dvc-prefix-file 61) 'dvc-file-diff) (define-key map (dvc-prefix-view-buffer 112) 'dvc-show-process-buffer) (define-key map (dvc-prefix-view-buffer 101) 'dvc-show-last-error-buffer) (define-key map (dvc-prefix-view-buffer 108) 'dvc-open-internal-log-buffer) (define-key map (dvc-prefix-view-buffer dvc-key-diff) 'tla-changes-goto) (define-key map (dvc-prefix-view-buffer dvc-key-status) 'baz-status-goto) (define-key map (dvc-prefix-view-buffer dvc-key-inventory) 'tla-inventory-goto) (define-key map (dvc-prefix-view-buffer 76) 'tla-tree-lint-goto) (define-key map (dvc-prefix-view-buffer 114) 'tla-tree-revisions-goto) (define-key map (dvc-prefix-kill-ring 97) 'tla-save-archive-to-kill-ring) (define-key map (dvc-prefix-kill-ring 118) 'tla-save-version-to-kill-ring) (define-key map (dvc-prefix-kill-ring 114) 'tla-save-revision-to-kill-ring) map) "\
 Global keymap used by DVC.")
 
 (defvar dvc-prefix-key [(control x) 86] "\
@@ -658,20 +658,20 @@ Prefix key for the DVC commands in the global keymap.
 
 If you wish to disable the prefix key, set this variable to nil.")
 
-(custom-autoload (quote dvc-prefix-key) "dvc-ui" nil)
+(custom-autoload 'dvc-prefix-key "dvc-ui" nil)
 
-(autoload (quote dvc-enable-prefix-key) "dvc-ui" "\
+(autoload 'dvc-enable-prefix-key "dvc-ui" "\
 Install the DVC prefix key globally.
 
 \(fn)" t nil)
 
 (dvc-enable-prefix-key)
 
-(add-hook (quote after-init-hook) (quote dvc-enable-prefix-key) t)
+(add-hook 'after-init-hook 'dvc-enable-prefix-key t)
 
-(define-key ctl-x-4-map [84] (quote dvc-add-log-entry))
+(define-key ctl-x-4-map [84] 'dvc-add-log-entry)
 
-(easy-menu-add-item (and (boundp (quote menu-bar-tools-menu)) (dvc-do-in-gnu-emacs menu-bar-tools-menu)) (dvc-do-in-xemacs (quote ("Tools"))) (quote ("DVC" ["Show Bookmarks" dvc-bookmarks t] "---" "Tree Commands:" ["View Diff" dvc-diff t] ["View Status" dvc-status t] ["View Missing" dvc-missing t] ["View Log" dvc-log t] ["View ChangeLog" dvc-changelog t] ["Edit Commit Log" dvc-log-edit t] "---" "File Commands:" ["Add Files" dvc-add-files t] ["Revert Files" dvc-revert-files t] ["Remove Files" dvc-remove-files t] ["Add Log Entry" dvc-add-log-entry t] "---" ["Initialize repository" dvc-init t])) "PCL-CVS")
+(easy-menu-add-item (and (boundp 'menu-bar-tools-menu) (dvc-do-in-gnu-emacs menu-bar-tools-menu)) (dvc-do-in-xemacs '("Tools")) '("DVC" ["Show Bookmarks" dvc-bookmarks t] "---" "Tree Commands:" ["View Diff" dvc-diff t] ["View Status" dvc-status t] ["View Missing" dvc-missing t] ["View Log" dvc-log t] ["View ChangeLog" dvc-changelog t] ["Edit Commit Log" dvc-log-edit t] "---" "File Commands:" ["Add Files" dvc-add-files t] ["Revert Files" dvc-revert-files t] ["Remove Files" dvc-remove-files t] ["Add Log Entry" dvc-add-log-entry t] "---" ["Initialize repository" dvc-init t]) "PCL-CVS")
 
 ;;;***
 
@@ -684,46 +684,46 @@ Install the DVC prefix key globally.
 ;;;;;;  dvc-log dvc-status dvc-file-diff dvc-delta dvc-diff-against-url
 ;;;;;;  dvc-diff dvc-clone define-dvc-unified-command dvc-remove-files
 ;;;;;;  dvc-revert-files dvc-add-files dvc-init) "dvc-unified" "../../lisp/dvc-unified.el"
-;;;;;;  (19104 28510))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-unified.el
 
-(autoload (quote dvc-init) "dvc-unified" "\
+(autoload 'dvc-init "dvc-unified" "\
 Initialize a new repository.
 It currently supports the initialization for bzr, xhg, xgit, tla.
 Note: this function is only useful when called interactively.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-add-files) "dvc-unified" "\
+(autoload 'dvc-add-files "dvc-unified" "\
 Add FILES to the currently active dvc. FILES is a list of
 strings including path from root; interactive defaults
 to (dvc-current-file-list).
 
 \(fn &rest FILES)" t nil)
 
-(autoload (quote dvc-revert-files) "dvc-unified" "\
+(autoload 'dvc-revert-files "dvc-unified" "\
 Revert FILES for the currently active dvc.
 
 \(fn &rest FILES)" t nil)
 
-(autoload (quote dvc-remove-files) "dvc-unified" "\
+(autoload 'dvc-remove-files "dvc-unified" "\
 Remove FILES for the currently active dvc.
 Return t if files removed, nil if not (due to user confirm or error).
 
 \(fn &rest FILES)" t nil)
 
-(autoload (quote define-dvc-unified-command) "dvc-unified" "\
+(autoload 'define-dvc-unified-command "dvc-unified" "\
 Define a DVC unified command.  &optional arguments are permitted, but
 not &rest.
 
 \(fn NAME ARGS COMMENT &optional INTERACTIVE)" nil (quote macro))
 
-(autoload (quote dvc-clone) "dvc-unified" "\
+(autoload 'dvc-clone "dvc-unified" "\
 Ask for the DVC to use and clone SOURCE-PATH.
 
 \(fn &optional DVC SOURCE-PATH DEST-PATH REV)" t nil)
 
-(autoload (quote dvc-diff) "dvc-unified" "\
+(autoload 'dvc-diff "dvc-unified" "\
 Display the changes from BASE-REV to the local tree in PATH.
 
 BASE-REV (a revision-id) defaults to base revision of the
@@ -736,12 +736,12 @@ The new buffer is always displayed; if DONT-SWITCH is nil, select it.
 
 \(fn &optional BASE-REV PATH DONT-SWITCH)" t nil)
 
-(autoload (quote dvc-diff-against-url) "dvc-unified" "\
+(autoload 'dvc-diff-against-url "dvc-unified" "\
 Show the diff from the current tree against a remote url
 
 \(fn PATH)" t nil)
 
-(autoload (quote dvc-delta) "dvc-unified" "\
+(autoload 'dvc-delta "dvc-unified" "\
 Display diff from revision BASE to MODIFIED.
 
 BASE and MODIFIED must be full revision IDs, or strings. If
@@ -752,7 +752,7 @@ The new buffer is always displayed; if DONT-SWITCH is nil, select it.
 
 \(fn BASE MODIFIED &optional DONT-SWITCH)" t nil)
 
-(autoload (quote dvc-file-diff) "dvc-unified" "\
+(autoload 'dvc-file-diff "dvc-unified" "\
 Display the changes in FILE (default current buffer file)
 between BASE (default last-revision) and MODIFIED (default
 workspace version).
@@ -760,12 +760,12 @@ If DONT-SWITCH is non-nil, just show the diff buffer, don't select it.
 
 \(fn FILE &optional BASE MODIFIED DONT-SWITCH)" t nil)
 
-(autoload (quote dvc-status) "dvc-unified" "\
+(autoload 'dvc-status "dvc-unified" "\
 Display the status in optional PATH tree.
 
 \(fn &optional PATH)" t nil)
 
-(autoload (quote dvc-log) "dvc-unified" "\
+(autoload 'dvc-log "dvc-unified" "\
 Display the brief log for PATH (a file-name; default current
 buffer file name; nil means entire tree; prefix arg means prompt
 for tree), LAST-N entries (default `dvc-log-last-n'; all if
@@ -773,23 +773,23 @@ nil). Use `dvc-changelog' for the full log.
 
 \(fn &optional PATH LAST-N)" t nil)
 
-(autoload (quote dvc-changelog) "dvc-unified" "\
+(autoload 'dvc-changelog "dvc-unified" "\
 Display the full changelog in this tree for the actual dvc.
 Use `dvc-log' for the brief log.
 
 \(fn &optional ARG)" t nil)
 
-(autoload (quote dvc-add) "dvc-unified" "\
+(autoload 'dvc-add "dvc-unified" "\
 Adds FILE to the repository.
 
 \(fn FILE)" t nil)
 
-(autoload (quote dvc-command-version) "dvc-unified" "\
+(autoload 'dvc-command-version "dvc-unified" "\
 Returns and/or shows the version identity string of backend command.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-tree-root) "dvc-unified" "\
+(autoload 'dvc-tree-root "dvc-unified" "\
 Get the tree root for PATH or the current `default-directory'.
 
 When called interactively, print a message including the tree root and
@@ -797,7 +797,7 @@ the current active back-end.
 
 \(fn &optional PATH NO-ERROR)" t nil)
 
-(autoload (quote dvc-log-edit) "dvc-unified" "\
+(autoload 'dvc-log-edit "dvc-unified" "\
 Edit the log before commiting. Optional OTHER_FRAME (default
 user prefix) puts log edit buffer in a separate frame (or in the
 same frame if `dvc-log-edit-other-frame' is non-nil). Optional
@@ -806,34 +806,34 @@ reused. `default-directory' must be the tree root.
 
 \(fn &optional OTHER-FRAME NO-INIT)" t nil)
 
-(autoload (quote dvc-log-edit-done) "dvc-unified" "\
+(autoload 'dvc-log-edit-done "dvc-unified" "\
 Commit and close the log buffer.  Optional ARG is back-end specific.
 
 \(fn &optional ARG)" t nil)
 
-(autoload (quote dvc-edit-ignore-files) "dvc-unified" "\
+(autoload 'dvc-edit-ignore-files "dvc-unified" "\
 Edit the ignored file list.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-ignore-files) "dvc-unified" "\
+(autoload 'dvc-ignore-files "dvc-unified" "\
 Ignore the marked files.
 
 \(fn FILE-LIST)" t nil)
 
-(autoload (quote dvc-ignore-file-extensions) "dvc-unified" "\
+(autoload 'dvc-ignore-file-extensions "dvc-unified" "\
 Ignore the file extensions of the marked files, in all
 directories of the workspace.
 
 \(fn FILE-LIST)" t nil)
 
-(autoload (quote dvc-ignore-file-extensions-in-dir) "dvc-unified" "\
+(autoload 'dvc-ignore-file-extensions-in-dir "dvc-unified" "\
 Ignore the file extensions of the marked files, only in the
 directories containing the files, and recursively below them.
 
 \(fn FILE-LIST)" t nil)
 
-(autoload (quote dvc-missing) "dvc-unified" "\
+(autoload 'dvc-missing "dvc-unified" "\
 Show revisions missing from PATH (default prompt),
 relative to OTHER. OTHER defaults to the head revision of the
 current branch; for some back-ends, it may also be a remote
@@ -843,22 +843,22 @@ If USE-CURRENT non-nil (default user prefix arg), PATH defaults to current tree.
 
 \(fn &optional OTHER PATH USE-CURRENT)" t nil)
 
-(autoload (quote dvc-inventory) "dvc-unified" "\
+(autoload 'dvc-inventory "dvc-unified" "\
 Show the inventory for this working copy.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-save-diff) "dvc-unified" "\
+(autoload 'dvc-save-diff "dvc-unified" "\
 Store the diff from the working copy against the repository in a file.
 
 \(fn FILE)" t nil)
 
-(autoload (quote dvc-update) "dvc-unified" "\
+(autoload 'dvc-update "dvc-unified" "\
 Update this working copy to REVISION-ID (default head of current branch).
 
 \(fn &optional REVISION-ID)" t nil)
 
-(autoload (quote dvc-pull) "dvc-unified" "\
+(autoload 'dvc-pull "dvc-unified" "\
 Pull changes from a remote location.
 If OTHER is nil, pull from a default or remembered location as
 determined by the back-end.  If OTHER is a string, it identifies
@@ -867,12 +867,12 @@ database, branch or workspace.
 
 \(fn &optional OTHER)" t nil)
 
-(autoload (quote dvc-push) "dvc-unified" "\
+(autoload 'dvc-push "dvc-unified" "\
 Push changes to a remote location.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-merge) "dvc-unified" "\
+(autoload 'dvc-merge "dvc-unified" "\
 Merge with OTHER.
 If OTHER is nil, merge heads in current database, or merge from
 remembered database.
@@ -881,12 +881,12 @@ branch to merge into the current database, branch, or workspace.
 
 \(fn &optional OTHER)" t nil)
 
-(autoload (quote dvc-submit-patch) "dvc-unified" "\
+(autoload 'dvc-submit-patch "dvc-unified" "\
 Submit a patch for the current project under DVC control.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-send-commit-notification) "dvc-unified" "\
+(autoload 'dvc-send-commit-notification "dvc-unified" "\
 Send a commit notification for the changeset at point.
 If TO is provided, send it to that email address.  If a prefix
 argument is given, modify the behavior of this command as
@@ -894,22 +894,22 @@ specified by the VCS backend.
 
 \(fn &optional TO)" t nil)
 
-(autoload (quote dvc-export-via-email) "dvc-unified" "\
+(autoload 'dvc-export-via-email "dvc-unified" "\
 Send the changeset at point via email.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-create-branch) "dvc-unified" "\
+(autoload 'dvc-create-branch "dvc-unified" "\
 Create a new branch.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-select-branch) "dvc-unified" "\
+(autoload 'dvc-select-branch "dvc-unified" "\
 Select a branch.
 
 \(fn)" t nil)
 
-(autoload (quote dvc-list-branches) "dvc-unified" "\
+(autoload 'dvc-list-branches "dvc-unified" "\
 List available branches.
 
 \(fn)" t nil)
@@ -917,7 +917,7 @@ List available branches.
 ;;;***
 
 ;;;### (autoloads (dvc-reload dvc-trace) "dvc-utils" "../../lisp/dvc-utils.el"
-;;;;;;  (19104 28510))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/dvc-utils.el
 
 (defmacro dvc-do-in-gnu-emacs (&rest body) "\
@@ -926,14 +926,14 @@ Execute BODY if in GNU/Emacs." (declare (indent defun) (debug (body))) (unless (
 (defmacro dvc-do-in-xemacs (&rest body) "\
 Execute BODY if in XEmacs." (declare (indent defun) (debug (body))) (when (featurep (quote xemacs)) (\` (progn (\,@ body)))))
 
-(autoload (quote dvc-trace) "dvc-utils" "\
+(autoload 'dvc-trace "dvc-utils" "\
 Display the trace message MSG.
 Same as `message' if `dvc-debug' is non-nil.
 Does nothing otherwise.  Please use it for your debug messages.
 
 \(fn &rest MSG)" nil nil)
 
-(autoload (quote dvc-reload) "dvc-utils" "\
+(autoload 'dvc-reload "dvc-utils" "\
 Reload DVC (usually for debugging purpose).
 
 With prefix arg, prompts for the DIRECTORY in which DVC should be
@@ -960,10 +960,10 @@ run \"make\".
 ;;;;;;  tla-resolved tla-file-diff tla-file-ediff-against tla-apply-changeset
 ;;;;;;  tla-get-changeset tla-delta tla-changes-last-revision tla-changes-against
 ;;;;;;  tla-update tla-changes tla-edit-log tla-inventory) "tla"
-;;;;;;  "../../lisp/tla.el" (18552 2376))
+;;;;;;  "../../lisp/tla.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla.el
 
-(autoload (quote tla-inventory) "tla" "\
+(autoload 'tla-inventory "tla" "\
 Show a tla inventory at DIRECTORY.
 When called with a prefix arg, pop to the inventory buffer.
 DIRECTORY defaults to the current one when within an arch managed tree,
@@ -971,7 +971,7 @@ unless prefix argument ARG is non-nil.
 
 \(fn &optional DIRECTORY ARG)" t nil)
 
-(autoload (quote tla-edit-log) "tla" "\
+(autoload 'tla-edit-log "tla" "\
 Edit the tla log file.
 
 With an optional prefix argument INSERT-CHANGELOG, insert the last
@@ -981,7 +981,7 @@ the list of marked files, and potentially run a selected file commit.
 
 \(fn &optional INSERT-CHANGELOG SOURCE-BUFFER OTHER-FRAME)" t nil)
 
-(autoload (quote tla-changes) "tla" "\
+(autoload 'tla-changes "tla" "\
 Run \"tla changes\".
 
 When called without a prefix argument: show the detailed diffs also.
@@ -992,7 +992,7 @@ DONT-SWITCH is necessary for DVC, but currently ignored.
 
 \(fn &optional SUMMARY AGAINST DONT-SWITCH)" t nil)
 
-(autoload (quote tla-update) "tla" "\
+(autoload 'tla-update "tla" "\
 Run tla update in TREE.
 
 Also runs update recursively for subdirectories.
@@ -1000,7 +1000,7 @@ After running update, execute HANDLE (function taking no argument).
 
 \(fn TREE &optional HANDLE RECURSIVE)" t nil)
 
-(autoload (quote tla-changes-against) "tla" "\
+(autoload 'tla-changes-against "tla" "\
 Wrapper for `tla-changes'.
 
 When called interactively, SUMMARY is the prefix arg, and AGAINST is
@@ -1008,7 +1008,7 @@ read from the user.
 
 \(fn &optional SUMMARY AGAINST)" t nil)
 
-(autoload (quote tla-changes-last-revision) "tla" "\
+(autoload 'tla-changes-last-revision "tla" "\
 Run `tla-changes' against the last but one revision.
 
 The idea is that running this command just after a commit should be
@@ -1018,7 +1018,7 @@ SUMMARY is passed to `tla-changes'.
 
 \(fn &optional SUMMARY)" t nil)
 
-(autoload (quote tla-delta) "tla" "\
+(autoload 'tla-delta "tla" "\
 Run tla delta BASE MODIFIED.
 If DIRECTORY is a non-empty string, the delta is stored to it.
 If DIRECTORY is ask, a symbol, ask the name of directory.
@@ -1026,7 +1026,7 @@ If DIRECTORY is nil or an empty string, just show the delta using --diffs.
 
 \(fn BASE MODIFIED &optional DIRECTORY DONT-SWITCH)" t nil)
 
-(autoload (quote tla-get-changeset) "tla" "\
+(autoload 'tla-get-changeset "tla" "\
 Gets the changeset corresponding to REVISION.
 
 When JUSTSHOW is non-nil (no prefix arg), just show the diff.
@@ -1036,7 +1036,7 @@ changeset.
 
 \(fn REVISION JUSTSHOW &optional DESTINATION WITHOUT-DIFF)" t nil)
 
-(autoload (quote tla-apply-changeset) "tla" "\
+(autoload 'tla-apply-changeset "tla" "\
 Call \"tla apply-changeset\".
 
 CHANGESET is the changeset to apply, TARGET is the directory in which
@@ -1045,12 +1045,12 @@ reverse.
 
 \(fn CHANGESET TARGET &optional REVERSE)" t nil)
 
-(autoload (quote tla-file-ediff-against) "tla" "\
+(autoload 'tla-file-ediff-against "tla" "\
 View changes in FILE between BASE and MODIFIED using ediff.
 
 \(fn FILE &optional BASE)" t nil)
 
-(autoload (quote tla-file-diff) "tla" "\
+(autoload 'tla-file-diff "tla" "\
 Run \"tla file-diff\" on file FILE.
 
 In interactive mode, the file is the current buffer's file.
@@ -1059,7 +1059,7 @@ name, and the file will be diffed according to this revision.
 
 \(fn FILE &optional BASE MODIFIED DONT-SWITCH)" t nil)
 
-(autoload (quote tla-resolved) "tla" "\
+(autoload 'tla-resolved "tla" "\
 Command to delete .rej file after conflicts resolution.
 Asks confirmation if the file still has diff3 markers.
 
@@ -1067,7 +1067,7 @@ If \"resolved\" command is available, also run it.
 
 \(fn FILE)" t nil)
 
-(autoload (quote tla-view-conflicts) "tla" "\
+(autoload 'tla-view-conflicts "tla" "\
 *** WARNING: semi-deprecated function.
 Use this function if you like, but M-x smerge-mode RET is actually
 better for the same task ****
@@ -1087,14 +1087,14 @@ will be rejected if you do nothing).
 
 \(fn BUFFER)" t nil)
 
-(autoload (quote tla-file-ediff) "tla" "\
+(autoload 'tla-file-ediff "tla" "\
 Interactive view of differences in FILE with ediff.
 
 Changes are computed since last commit (or REVISION if specified).
 
 \(fn FILE &optional REVISION)" t nil)
 
-(autoload (quote tla-file-view-original) "tla" "\
+(autoload 'tla-file-view-original "tla" "\
 Get the last-committed version of FILE in a buffer.
 
 If REVISION is specified, it must be a cons representing the revision
@@ -1102,7 +1102,7 @@ for which to get the original.
 
 \(fn FILE &optional REVISION)" t nil)
 
-(autoload (quote tla-revision-get-last-revision) "tla" "\
+(autoload 'tla-revision-get-last-revision "tla" "\
 Insert the content of FILE in LAST-REVISION, in current buffer.
 
 LAST-REVISION looks like
@@ -1110,7 +1110,7 @@ LAST-REVISION looks like
 
 \(fn FILE LAST-REVISION)" nil nil)
 
-(autoload (quote tla-commit) "tla" "\
+(autoload 'tla-commit "tla" "\
 Run tla commit.
 
 Optional argument HANDLER is the process handler for the commit
@@ -1120,7 +1120,7 @@ When the commit finishes successful, `tla-commit-done-hook' is called.
 
 \(fn &optional HANDLER VERSION-FLAG SUMMARY-LINE)" t nil)
 
-(autoload (quote tla-start-project) "tla" "\
+(autoload 'tla-start-project "tla" "\
 Start a new project.
 Prompts for the root directory of the project and the fully
 qualified version name to use.  Sets up and imports the tree and
@@ -1134,12 +1134,12 @@ Else run it asynchronously.
 
 \(fn &optional ARCHIVE SYNCHRONOUSLY)" t nil)
 
-(autoload (quote tla-rm) "tla" "\
+(autoload 'tla-rm "tla" "\
 Call tla rm on file FILE.  Prompts for confirmation before.
 
 \(fn FILE)" nil nil)
 
-(autoload (quote tla-changelog) "tla" "\
+(autoload 'tla-changelog "tla" "\
 Run \"tla changelog\".
 
 display the result in an improved ChangeLog mode.
@@ -1148,17 +1148,17 @@ as the place where changelog is got.
 
 \(fn &optional NAME)" t nil)
 
-(autoload (quote tla-logs) "tla" "\
+(autoload 'tla-logs "tla" "\
 Run tla logs.
 
 \(fn)" t nil)
 
-(autoload (quote tla-help) "tla" "\
+(autoload 'tla-help "tla" "\
 Run tla COMMAND -H.
 
 \(fn COMMAND)" t nil)
 
-(autoload (quote tla-tree-version) "tla" "\
+(autoload 'tla-tree-version "tla" "\
 Equivalent of tla tree-version (but implemented in pure elisp).
 
 Optional argument LOCATION is the directory in which the command must
@@ -1167,7 +1167,7 @@ arch managed tree.
 
 \(fn &optional LOCATION NO-ERROR)" t nil)
 
-(autoload (quote tla-my-id) "tla" "\
+(autoload 'tla-my-id "tla" "\
 Run tla my-id.
 
 When called without a prefix argument ARG, just print the my-id from
@@ -1185,12 +1185,12 @@ Jane Hacker <jane.hacker@gnu.org>
 
 \(fn &optional ARG MY-ID)" t nil)
 
-(autoload (quote tla-tree-id) "tla" "\
+(autoload 'tla-tree-id "tla" "\
 Call either 'baz tree-id' or 'tla logs -f -r' to get the tree-id.
 
 \(fn)" t nil)
 
-(autoload (quote tla-my-revision-library) "tla" "\
+(autoload 'tla-my-revision-library "tla" "\
 Run tla my-revision-library.
 
 When called without a prefix argument ARG, just print the
@@ -1205,31 +1205,31 @@ You can configure the parameters for the library via
 
 \(fn &optional ARG)" t nil)
 
-(autoload (quote tla-id-tagging-method) "tla" "\
+(autoload 'tla-id-tagging-method "tla" "\
 View (and return) or change the id-tagging method.
 When called without prefix argument ARG: show the actual tagging method.
 When called with prefix argument ARG: Ask the user for the new tagging method.
 
 \(fn ARG)" t nil)
 
-(autoload (quote tla-star-merge) "tla" "\
+(autoload 'tla-star-merge "tla" "\
 Star merge from version/revision FROM to local tree TO-TREE.
 
 \(fn FROM &optional TO-TREE)" t nil)
 
-(autoload (quote tla-switch) "tla" "\
+(autoload 'tla-switch "tla" "\
 Run tla switch to VERSION in TREE.
 
 After running update, execute HANDLE (function taking no argument).
 
 \(fn TREE VERSION &optional HANDLE)" t nil)
 
-(autoload (quote tla-export) "tla" "\
+(autoload 'tla-export "tla" "\
 Run tla export to export REVISION to DIR.
 
 \(fn REVISION DIR)" t nil)
 
-(autoload (quote tla-tag) "tla" "\
+(autoload 'tla-tag "tla" "\
 Create a tag from SOURCE-REVISION to TAG-VERSION.
 Run tla tag --setup.
 If SYNCHRONOUSLY is non-nil, the process for tagging runs synchronously.
@@ -1237,45 +1237,45 @@ Else it runs asynchronously.
 
 \(fn SOURCE-REVISION TAG-VERSION &optional CACHEREV SYNCHRONOUSLY)" t nil)
 
-(autoload (quote tla-bookmarks) "tla" "\
+(autoload 'tla-bookmarks "tla" "\
 Display xtla bookmarks in a buffer.
 With prefix argument ARG, reload the bookmarks file from disk.
 
 \(fn &optional ARG)" t nil)
 
-(autoload (quote tla-archives) "tla" "\
+(autoload 'tla-archives "tla" "\
 Start the archive browser.
 
 \(fn)" t nil)
 
-(autoload (quote tla-register-archive) "tla" "\
+(autoload 'tla-register-archive "tla" "\
 Call `tla--register-archive' interactively and `tla-archives' on success.
 
 \(fn)" t nil)
 
-(autoload (quote tla-make-archive) "tla" "\
+(autoload 'tla-make-archive "tla" "\
 Call `tla--make-archive' interactively  then call `tla-archives'.
 
 \(fn)" t nil)
 
-(autoload (quote tla-tree-revisions-goto) "tla" "\
+(autoload 'tla-tree-revisions-goto "tla" "\
 Goto tree revisions buffer or call `tla-tree-revisions'.
 
 \(fn ROOT)" t nil)
 
-(autoload (quote tla-tree-revisions) "tla" "\
+(autoload 'tla-tree-revisions "tla" "\
 Call `tla-revisions' in the current tree.
 
 \(fn ROOT)" t nil)
 
-(autoload (quote tla-revisions) "tla" "\
+(autoload 'tla-revisions "tla" "\
 List the revisions of ARCHIVE/CATEGORY--BRANCH--VERSION.
 
 UNUSED is left here to keep the position of FROM-REVLIB
 
 \(fn ARCHIVE CATEGORY BRANCH VERSION &optional UNUSED FROM-REVLIB)" t nil)
 
-(autoload (quote tla-missing-1) "tla" "\
+(autoload 'tla-missing-1 "tla" "\
 Search in directory LOCAL-TREE for missing patches from LOCATION.
 If the current buffers default directory is in an arch managed tree use that
 one unless called with a prefix arg.  In all other cases prompt for the local
@@ -1283,7 +1283,7 @@ tree and the location.
 
 \(fn LOCAL-TREE LOCATION)" t nil)
 
-(autoload (quote tla-get) "tla" "\
+(autoload 'tla-get "tla" "\
 Run tla get in DIRECTORY.
 If RUN-DIRED-P is non-nil, display the new tree in dired.
 ARCHIVE, CATEGORY, BRANCH, VERSION and REVISION make up the revision to be
@@ -1293,41 +1293,41 @@ Else, run the process asynchronously.
 
 \(fn DIRECTORY RUN-DIRED-P ARCHIVE CATEGORY BRANCH &optional VERSION REVISION SYNCHRONOUSLY)" t nil)
 
-(autoload (quote tla-dvc-add-files) "tla" "\
+(autoload 'tla-dvc-add-files "tla" "\
 Run tla add.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote tla-file-has-conflict-p) "tla" "\
+(autoload 'tla-file-has-conflict-p "tla" "\
 Return non-nil if FILE-NAME has conflicts.
 
 \(fn FILE-NAME)" nil nil)
 
-(autoload (quote tla-revlog) "tla" "\
+(autoload 'tla-revlog "tla" "\
 Show the log for REVISION-SPEC.
 
 \(fn REVISION-SPEC)" t nil)
 
-(add-to-list (quote auto-mode-alist) (quote ("\\+\\+log\\." . tla-log-edit-mode)))
+(add-to-list 'auto-mode-alist '("\\+\\+log\\." . tla-log-edit-mode))
 
-(autoload (quote tla-log-edit-mode) "tla" "\
+(autoload 'tla-log-edit-mode "tla" "\
 Major Mode to edit xtla log messages.
 Commands:
 \\{tla-log-edit-mode-map}
 
 \(fn)" t nil)
 
-(autoload (quote tla-revlog-any) "tla" "\
+(autoload 'tla-revlog-any "tla" "\
 Show the log entry for REVISION (a string).
 
 \(fn REVISION)" t nil)
 
-(autoload (quote tla-inventory-file-mode) "tla" "\
+(autoload 'tla-inventory-file-mode "tla" "\
 Major mode to edit tla inventory files (=tagging-method, .arch-inventory).
 
 \(fn)" t nil)
 
-(autoload (quote tla-tag-string) "tla" "\
+(autoload 'tla-tag-string "tla" "\
 Return a suitable string for an arch-tag.
 Actually calls `tla-tag-function', which defaults to `tla-tag-uuid' to generate
 string (and possibly add a comment-end after).
@@ -1337,14 +1337,14 @@ be usefull to write template files.
 
 \(fn)" nil nil)
 
-(autoload (quote tla-tag-insert) "tla" "\
+(autoload 'tla-tag-insert "tla" "\
 Insert a unique arch-tag in the current file.
 Actually calls `tla-tag-function', which defaults to `tla-tag-uuid' to generate
 string (and possibly add a comment-end after)
 
 \(fn)" t nil)
 
-(autoload (quote tla-tag-regenerate) "tla" "\
+(autoload 'tla-tag-regenerate "tla" "\
 Find an arch tag in the current buffer and regenerates it.
 This means changing the ID of the file, which will usually be done after
 copying a file in the same tree to avoid duplicates ID.
@@ -1353,22 +1353,22 @@ Raises an error when multiple tags are found or when no tag is found.
 
 \(fn)" t nil)
 
-(autoload (quote tla-ediff-add-log-entry) "tla" "\
+(autoload 'tla-ediff-add-log-entry "tla" "\
 Add a log entry.
 
 \(fn)" t nil)
 
-(autoload (quote tla-tree-lint) "tla" "\
+(autoload 'tla-tree-lint "tla" "\
 Run tla tree-lint in directory ROOT.
 
 \(fn ROOT)" t nil)
 
-(autoload (quote tla-insert-location) "tla" "\
+(autoload 'tla-insert-location "tla" "\
 Prompts an archive location and insert it on the current point location.
 
 \(fn)" t nil)
 
-(autoload (quote tla-prepare-patch-submission) "tla" "\
+(autoload 'tla-prepare-patch-submission "tla" "\
 Submit a patch to a tla working copy (at TLA-TREE-ROOT) via email.
 With this feature it is not necessary to tag an tla archive.
 You simply edit your checked out copy from your project and call this function.
@@ -1381,7 +1381,7 @@ For an example, how to use this function see: `tla-submit-patch'.
 
 \(fn TLA-TREE-ROOT TARBALL-BASE-NAME EMAIL VERSION-STRING &optional DESCRIPTION SUBJECT)" t nil)
 
-(autoload (quote tla-submit-patch-done) "tla" "\
+(autoload 'tla-submit-patch-done "tla" "\
 Clean up after sending a patch via mail.
 That function is usually called via `message-sent-hook'. Its purpose is to revert
 the sent changes or to delete sent changeset tarball (see: `tla-patch-sent-action'.
@@ -1391,23 +1391,23 @@ the sent changes or to delete sent changeset tarball (see: `tla-patch-sent-actio
 ;;;***
 
 ;;;### (autoloads (tla-bconfig-mode) "tla-bconfig" "../../lisp/tla-bconfig.el"
-;;;;;;  (18116 17277))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-bconfig.el
 
-(autoload (quote tla-bconfig-mode) "tla-bconfig" "\
+(autoload 'tla-bconfig-mode "tla-bconfig" "\
 Major mode to edit GNU arch's build config files.
 
 \(fn)" t nil)
 
-(add-to-list (quote auto-mode-alist) (quote ("\\.arch$" . tla-bconfig-mode)))
+(add-to-list 'auto-mode-alist '("\\.arch$" . tla-bconfig-mode))
 
 ;;;***
 
 ;;;### (autoloads (tla-browse) "tla-browse" "../../lisp/tla-browse.el"
-;;;;;;  (18552 2376))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-browse.el
 
-(autoload (quote tla-browse) "tla-browse" "\
+(autoload 'tla-browse "tla-browse" "\
 Browse registered archives as trees within one buffer.
 You can specify the node should be opened by alist,
 INITIAL-OPEN-LIST.  If APPEND is nil, the nodes not in
@@ -1419,10 +1419,10 @@ already opened are kept open.
 ;;;***
 
 ;;;### (autoloads (tla-make-name-regexp tla-tree-root) "tla-core"
-;;;;;;  "../../lisp/tla-core.el" (18552 2376))
+;;;;;;  "../../lisp/tla-core.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-core.el
 
-(autoload (quote tla-tree-root) "tla-core" "\
+(autoload 'tla-tree-root "tla-core" "\
 Return the tree root for LOCATION, nil if not in a local tree.
 Computation is done from withing Emacs, by looking at an {arch}
 directory in a parent buffer of LOCATION.  This is therefore very
@@ -1436,7 +1436,7 @@ arch managed tree (but return nil).
 
 \(fn &optional LOCATION NO-ERROR INTERACTIVE)" t nil)
 
-(autoload (quote tla-make-name-regexp) "tla-core" "\
+(autoload 'tla-make-name-regexp "tla-core" "\
 Make a regexp for an Arch name (archive, category, ...).
 
 LEVEL can be 0 (archive), 1 (category), 2 (branch), 3 (version)
@@ -1454,19 +1454,19 @@ If EXACT is non-nil, match exactly LEVEL.
 ;;;### (autoloads (tla-toggle-non-recursive-inventory tla-toggle-show-ancestor
 ;;;;;;  tla-toggle-three-way-merge tla-use-skip-present-option tla-non-recursive-inventory
 ;;;;;;  tla-show-ancestor tla-three-way-merge xtla) "tla-defs" "../../lisp/tla-defs.el"
-;;;;;;  (18552 2376))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-defs.el
 
-(eval-and-compile (require (quote easymenu)) (require (quote dvc-core)))
+(eval-and-compile (require 'easymenu) (require 'dvc-core))
 
-(let ((loads (get (quote xtla) (quote custom-loads)))) (if (member (quote "tla-defs") loads) nil (put (quote xtla) (quote custom-loads) (cons (quote "tla-defs") loads))))
+(let ((loads (get 'xtla 'custom-loads))) (if (member '"tla-defs" loads) nil (put 'xtla 'custom-loads (cons '"tla-defs" loads))))
 
 (defvar tla-three-way-merge t "\
 *If non-nil, merge operations are invoked with --three-way.
 \(or without --two-way for branches of arch in which --three-way is the
 default).")
 
-(custom-autoload (quote tla-three-way-merge) "tla-defs" t)
+(custom-autoload 'tla-three-way-merge "tla-defs" t)
 
 (defvar tla-show-ancestor nil "\
 *If non-nil, merge operations are invoked with --show-ancestor.
@@ -1479,53 +1479,53 @@ Unfortunately, this will also report more conflicts: Conflicts will be
 reported even when TREE and MERGE-SOURCE are identical, if they differ
 from ANCESTOR.")
 
-(custom-autoload (quote tla-show-ancestor) "tla-defs" t)
+(custom-autoload 'tla-show-ancestor "tla-defs" t)
 
 (defvar tla-non-recursive-inventory t "\
 *If non-nil, inventory is run with --no-recursion (if available).")
 
-(custom-autoload (quote tla-non-recursive-inventory) "tla-defs" t)
+(custom-autoload 'tla-non-recursive-inventory "tla-defs" t)
 
 (defvar tla-use-skip-present-option nil "\
 *If non-nil, use --skip-present with commands that allow it.")
 
-(custom-autoload (quote tla-use-skip-present-option) "tla-defs" t)
+(custom-autoload 'tla-use-skip-present-option "tla-defs" t)
 
-(autoload (quote tla-toggle-three-way-merge) "tla-defs" "\
+(autoload 'tla-toggle-three-way-merge "tla-defs" "\
 Toggle the value of `tla-three-way-merge'.
 
 \(fn)" t nil)
 
-(autoload (quote tla-toggle-show-ancestor) "tla-defs" "\
+(autoload 'tla-toggle-show-ancestor "tla-defs" "\
 Toggle the value of `tla-show-ancestor'.
 
 \(fn)" t nil)
 
-(autoload (quote tla-toggle-non-recursive-inventory) "tla-defs" "\
+(autoload 'tla-toggle-non-recursive-inventory "tla-defs" "\
 Toggle the value of `tla-toggle-non-recursive-inventory'.
 
 \(fn)" t nil)
 
-(add-to-list (quote auto-mode-alist) (quote ("/\\(=tagging-method\\|\\.arch-inventory\\)$" . tla-inventory-file-mode)))
+(add-to-list 'auto-mode-alist '("/\\(=tagging-method\\|\\.arch-inventory\\)$" . tla-inventory-file-mode))
 
 ;;;***
 
-;;;### (autoloads nil "tla-dvc" "../../lisp/tla-dvc.el" (18552 2376))
+;;;### (autoloads nil "tla-dvc" "../../lisp/tla-dvc.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-dvc.el
 
-(dvc-register-dvc (quote tla) "GNU Arch")
+(dvc-register-dvc 'tla "GNU Arch")
 
-(defalias (quote tla-dvc-command-version) (quote tla-command-version))
+(defalias 'tla-dvc-command-version 'tla-command-version)
 
-(defalias (quote tla-dvc-file-has-conflict-p) (quote tla-file-has-conflict-p))
+(defalias 'tla-dvc-file-has-conflict-p 'tla-file-has-conflict-p)
 
 ;;;***
 
 ;;;### (autoloads (tla-insinuate-gnus) "tla-gnus" "../../lisp/tla-gnus.el"
-;;;;;;  (18552 2376))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-gnus.el
 
-(autoload (quote tla-insinuate-gnus) "tla-gnus" "\
+(autoload 'tla-insinuate-gnus "tla-gnus" "\
 Integrate the tla backend of DVC into Gnus.
 Add the `tla-submit-patch-done' function to the
 `message-sent-hook'.
@@ -1538,15 +1538,15 @@ in the *Article* buffers.
 ;;;***
 
 ;;;### (autoloads (tla-tests-run tla-tests-batch) "tla-tests" "../../lisp/tla-tests.el"
-;;;;;;  (18552 2376))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/tla-tests.el
 
-(autoload (quote tla-tests-batch) "tla-tests" "\
+(autoload 'tla-tests-batch "tla-tests" "\
 Run all the available test-cases in batch mode.
 
 \(fn)" t nil)
 
-(autoload (quote tla-tests-run) "tla-tests" "\
+(autoload 'tla-tests-run "tla-tests" "\
 Run the testcase TEST.
 
 Switch HOME to the test directory, clear the log buffer, call the
@@ -1561,25 +1561,25 @@ TEST is the same as the one expected, stored in
 ;;;### (autoloads (xdarcs-dvc-remove-files xdarcs-dvc-revert-files
 ;;;;;;  xdarcs-revision-get-last-revision xdarcs-dvc-diff xdarcs-pull
 ;;;;;;  xdarcs-dvc-missing xdarcs-whatsnew xdarcs-dvc-add-files)
-;;;;;;  "xdarcs" "../../lisp/xdarcs.el" (19121 37302))
+;;;;;;  "xdarcs" "../../lisp/xdarcs.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xdarcs.el
 
-(autoload (quote xdarcs-dvc-add-files) "xdarcs" "\
+(autoload 'xdarcs-dvc-add-files "xdarcs" "\
 Run darcs add.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xdarcs-whatsnew) "xdarcs" "\
+(autoload 'xdarcs-whatsnew "xdarcs" "\
 Run darcs whatsnew.
 
 \(fn &optional PATH)" t nil)
 
-(autoload (quote xdarcs-dvc-missing) "xdarcs" "\
+(autoload 'xdarcs-dvc-missing "xdarcs" "\
 Run 'darcs pull --dry-run -s -v' to see what's missing
 
 \(fn &optional OTHER)" t nil)
 
-(autoload (quote xdarcs-pull) "xdarcs" "\
+(autoload 'xdarcs-pull "xdarcs" "\
 Run darcs pull --all.
 If OTHER is nil, pull from the repository most recently pulled
 from or pushed to.  If OTHER is a string, pull from that
@@ -1587,12 +1587,12 @@ repository.
 
 \(fn &optional OTHER)" t nil)
 
-(autoload (quote xdarcs-dvc-diff) "xdarcs" "\
+(autoload 'xdarcs-dvc-diff "xdarcs" "\
 Not documented
 
 \(fn &optional AGAINST PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xdarcs-revision-get-last-revision) "xdarcs" "\
+(autoload 'xdarcs-revision-get-last-revision "xdarcs" "\
 Insert the content of FILE in LAST-REVISION, in current buffer.
 
 LAST-REVISION looks like
@@ -1600,12 +1600,12 @@ LAST-REVISION looks like
 
 \(fn FILE LAST-REVISION)" nil nil)
 
-(autoload (quote xdarcs-dvc-revert-files) "xdarcs" "\
+(autoload 'xdarcs-dvc-revert-files "xdarcs" "\
 Run darcs revert.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xdarcs-dvc-remove-files) "xdarcs" "\
+(autoload 'xdarcs-dvc-remove-files "xdarcs" "\
 Run darcs remove.
 
 \(fn &rest FILES)" nil nil)
@@ -1613,10 +1613,10 @@ Run darcs remove.
 ;;;***
 
 ;;;### (autoloads (xdarcs-tree-root) "xdarcs-core" "../../lisp/xdarcs-core.el"
-;;;;;;  (17694 7628))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xdarcs-core.el
 
-(autoload (quote xdarcs-tree-root) "xdarcs-core" "\
+(autoload 'xdarcs-tree-root "xdarcs-core" "\
 Return the tree root for LOCATION, nil if not in a local tree.
 Computation is done from withing Emacs, by looking at an _darcs/
 directory in a parent buffer of LOCATION.  This is therefore very
@@ -1629,21 +1629,21 @@ git managed tree (but return nil).
 
 ;;;***
 
-;;;### (autoloads nil "xdarcs-dvc" "../../lisp/xdarcs-dvc.el" (19074
-;;;;;;  6971))
+;;;### (autoloads nil "xdarcs-dvc" "../../lisp/xdarcs-dvc.el" (19342
+;;;;;;  24247))
 ;;; Generated autoloads from ../../lisp/xdarcs-dvc.el
 
-(dvc-register-dvc (quote xdarcs) "Darcs")
+(dvc-register-dvc 'xdarcs "Darcs")
 
-(defalias (quote xdarcs-dvc-tree-root) (quote xdarcs-tree-root))
+(defalias 'xdarcs-dvc-tree-root 'xdarcs-tree-root)
 
-(defalias (quote xdarcs-dvc-log-edit-done) (quote xdarcs-log-edit-done))
+(defalias 'xdarcs-dvc-log-edit-done 'xdarcs-log-edit-done)
 
-(defalias (quote xdarcs-dvc-command-version) (quote xdarcs-command-version))
+(defalias 'xdarcs-dvc-command-version 'xdarcs-command-version)
 
-(defalias (quote xdarcs-dvc-status) (quote xdarcs-whatsnew))
+(defalias 'xdarcs-dvc-status 'xdarcs-whatsnew)
 
-(defalias (quote xdarcs-dvc-pull) (quote xdarcs-pull))
+(defalias 'xdarcs-dvc-pull 'xdarcs-pull)
 
 ;;;***
 
@@ -1653,50 +1653,50 @@ git managed tree (but return nil).
 ;;;;;;  xgit-dvc-diff xgit-reset-hard xgit-addremove xgit-add-all-files
 ;;;;;;  xgit-dvc-remove-files xgit-remove xgit-dvc-add-files xgit-add-patch
 ;;;;;;  xgit-add xgit-clone xgit-init) "xgit" "../../lisp/xgit.el"
-;;;;;;  (19086 49931))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit.el
 
-(autoload (quote xgit-init) "xgit" "\
+(autoload 'xgit-init "xgit" "\
 Run git init.
 
 \(fn &optional DIR)" t nil)
 
-(autoload (quote xgit-clone) "xgit" "\
+(autoload 'xgit-clone "xgit" "\
 Run git clone.
 
 \(fn SRC &optional DEST)" t nil)
 
-(autoload (quote xgit-add) "xgit" "\
+(autoload 'xgit-add "xgit" "\
 Add FILE to the current git project.
 
 \(fn FILE)" t nil)
 
-(autoload (quote xgit-add-patch) "xgit" "\
+(autoload 'xgit-add-patch "xgit" "\
 Add FILES to the current git project using 'git add --patch ...'.
 If FILES is nil, just run 'git add --patch'
 
 \(fn FILES)" t nil)
 
-(autoload (quote xgit-dvc-add-files) "xgit" "\
+(autoload 'xgit-dvc-add-files "xgit" "\
 Run git add.
 
 When called with a prefix argument, use `xgit-add-patch'.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xgit-remove) "xgit" "\
+(autoload 'xgit-remove "xgit" "\
 Remove FILE from the current git project.
 If FORCE is non-nil, then remove the file even if it has
 uncommitted changes.
 
 \(fn FILE &optional FORCE)" t nil)
 
-(autoload (quote xgit-dvc-remove-files) "xgit" "\
+(autoload 'xgit-dvc-remove-files "xgit" "\
 Run git rm.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xgit-add-all-files) "xgit" "\
+(autoload 'xgit-add-all-files "xgit" "\
 Run 'git add .' to add all files in the current directory tree to git.
 
 Normally run 'git add -n .' to simulate the operation to see
@@ -1706,7 +1706,7 @@ Only when called with a prefix argument, add the files.
 
 \(fn ARG)" t nil)
 
-(autoload (quote xgit-addremove) "xgit" "\
+(autoload 'xgit-addremove "xgit" "\
 Add all new files to the index, remove all deleted files from
 the index, and add all changed files to the index.
 
@@ -1714,71 +1714,71 @@ This is done only for files in the current directory tree.
 
 \(fn)" t nil)
 
-(autoload (quote xgit-reset-hard) "xgit" "\
+(autoload 'xgit-reset-hard "xgit" "\
 Run 'git reset --hard'
 
 \(fn &rest EXTRA-PARAM)" t nil)
 
-(autoload (quote xgit-dvc-diff) "xgit" "\
+(autoload 'xgit-dvc-diff "xgit" "\
 Not documented
 
 \(fn &optional AGAINST-REV PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xgit-diff-cached) "xgit" "\
+(autoload 'xgit-diff-cached "xgit" "\
 Call \"git diff --cached\".
 
 \(fn &optional AGAINST-REV PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xgit-diff-index) "xgit" "\
+(autoload 'xgit-diff-index "xgit" "\
 Call \"git diff\" (diff between tree and index).
 
 \(fn &optional AGAINST-REV PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xgit-diff-head) "xgit" "\
+(autoload 'xgit-diff-head "xgit" "\
 Call \"git diff HEAD\".
 
 \(fn &optional PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xgit-diff2) "xgit" "\
+(autoload 'xgit-diff2 "xgit" "\
 Call \"git diff BASE-REV AGAINST-REV\".
 
 \(fn BASE-REV AGAINST-REV &optional PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xgit-fetch) "xgit" "\
+(autoload 'xgit-fetch "xgit" "\
 Call git fetch.
 When called with a prefix argument, ask for the fetch source.
 
 \(fn &optional REPOSITORY)" t nil)
 
-(autoload (quote xgit-pull) "xgit" "\
+(autoload 'xgit-pull "xgit" "\
 Call git pull.
 When called with a prefix argument, ask for the pull source.
 
 \(fn &optional REPOSITORY)" t nil)
 
-(autoload (quote xgit-revert-file) "xgit" "\
+(autoload 'xgit-revert-file "xgit" "\
 Revert uncommitted changes made to FILE in the current branch.
 
 \(fn FILE)" t nil)
 
-(autoload (quote xgit-dvc-revert-files) "xgit" "\
+(autoload 'xgit-dvc-revert-files "xgit" "\
 Revert uncommitted changes made to FILES in the current branch.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xgit-apply-patch) "xgit" "\
+(autoload 'xgit-apply-patch "xgit" "\
 Run \"git apply\" to apply the contents of FILE as a patch.
 
 \(fn FILE)" t nil)
 
-(autoload (quote xgit-apply-mbox) "xgit" "\
+(autoload 'xgit-apply-mbox "xgit" "\
 Run \"git am\" to apply the contents of MBOX as one or more patches.
 If this command succeeds, it will result in a new commit being added to
 the current git repository.
 
 \(fn MBOX &optional FORCE)" t nil)
 
-(autoload (quote xgit-revision-get-last-revision) "xgit" "\
+(autoload 'xgit-revision-get-last-revision "xgit" "\
 Insert the content of FILE in LAST-REVISION, in current buffer.
 
 LAST-REVISION looks like
@@ -1789,10 +1789,10 @@ LAST-REVISION looks like
 ;;;***
 
 ;;;### (autoloads (xgit-prepare-environment xgit-tree-root) "xgit-core"
-;;;;;;  "../../lisp/xgit-core.el" (18831 37711))
+;;;;;;  "../../lisp/xgit-core.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-core.el
 
-(autoload (quote xgit-tree-root) "xgit-core" "\
+(autoload 'xgit-tree-root "xgit-core" "\
 Return the tree root for LOCATION, nil if not in a local tree.
 Computation is done from withing Emacs, by looking at an .git/
 directory in a parent buffer of LOCATION.  This is therefore very
@@ -1803,7 +1803,7 @@ git managed tree (but return nil).
 
 \(fn &optional LOCATION NO-ERROR INTERACTIVE)" nil nil)
 
-(autoload (quote xgit-prepare-environment) "xgit-core" "\
+(autoload 'xgit-prepare-environment "xgit-core" "\
 Prepare the environment to run git.
 
 \(fn ENV)" nil nil)
@@ -1811,30 +1811,30 @@ Prepare the environment to run git.
 ;;;***
 
 ;;;### (autoloads (xgit-dvc-log) "xgit-dvc" "../../lisp/xgit-dvc.el"
-;;;;;;  (18860 38234))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-dvc.el
 
-(dvc-register-dvc (quote xgit) "git")
+(dvc-register-dvc 'xgit "git")
 
-(defalias (quote xgit-dvc-tree-root) (quote xgit-tree-root))
+(defalias 'xgit-dvc-tree-root 'xgit-tree-root)
 
-(defalias (quote xgit-dvc-command-version) (quote xgit-command-version))
+(defalias 'xgit-dvc-command-version 'xgit-command-version)
 
-(autoload (quote xgit-dvc-log) "xgit-dvc" "\
+(autoload 'xgit-dvc-log "xgit-dvc" "\
 Shows the changelog in the current git tree.
 ARG is passed as prefix argument
 
 \(fn ARG LAST-N)" nil nil)
 
-(defalias (quote xgit-dvc-add) (quote xgit-add))
+(defalias 'xgit-dvc-add 'xgit-add)
 
 ;;;***
 
 ;;;### (autoloads (xgit-insinuate-gnus) "xgit-gnus" "../../lisp/xgit-gnus.el"
-;;;;;;  (18544 8223))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-gnus.el
 
-(autoload (quote xgit-insinuate-gnus) "xgit-gnus" "\
+(autoload 'xgit-insinuate-gnus "xgit-gnus" "\
 Integrate Xgit into Gnus.
 
 \(fn)" t nil)
@@ -1842,10 +1842,10 @@ Integrate Xgit into Gnus.
 ;;;***
 
 ;;;### (autoloads (xgit-log) "xgit-log" "../../lisp/xgit-log.el"
-;;;;;;  (18905 22910))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-log.el
 
-(autoload (quote xgit-log) "xgit-log" "\
+(autoload 'xgit-log "xgit-log" "\
 Run git log for DIR.
 DIR is a directory controlled by Git.
 CNT is max number of log to print.  If not specified, uses xgit-log-max-count.
@@ -1859,12 +1859,12 @@ FILE is filename in repostory to filter logs by matching filename.
 ;;;***
 
 ;;;### (autoloads (xgit-log-edit-mode) "xgit-log-edit" "../../lisp/xgit-log-edit.el"
-;;;;;;  (19085 28762))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-log-edit.el
 
-(add-to-list (quote auto-mode-alist) (quote ("/COMMIT_EDITMSG$" . xgit-log-edit-mode)))
+(add-to-list 'auto-mode-alist '("/COMMIT_EDITMSG$" . xgit-log-edit-mode))
 
-(autoload (quote xgit-log-edit-mode) "xgit-log-edit" "\
+(autoload 'xgit-log-edit-mode "xgit-log-edit" "\
 Major Mode to edit xgit log messages.
 Commands:
 \\{xgit-log-edit-mode-map}
@@ -1874,12 +1874,12 @@ Commands:
 ;;;***
 
 ;;;### (autoloads (xgit-rebase-todo-mode) "xgit-rebase-todo" "../../lisp/xgit-rebase-todo.el"
-;;;;;;  (19085 29286))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xgit-rebase-todo.el
 
-(add-to-list (quote auto-mode-alist) (quote ("/git-rebase-todo$" . xgit-rebase-todo-mode)))
+(add-to-list 'auto-mode-alist '("/git-rebase-todo$" . xgit-rebase-todo-mode))
 
-(autoload (quote xgit-rebase-todo-mode) "xgit-rebase-todo" "\
+(autoload 'xgit-rebase-todo-mode "xgit-rebase-todo" "\
 Major Mode to edit xgit rebase-todo files.
 
 These files are the ones on which git launches the editor for
@@ -1903,63 +1903,63 @@ Commands:
 ;;;;;;  xhg-log xhg-log-toggle-verbose xhg-add-all-files xhg-forget
 ;;;;;;  xhg-dvc-rename xhg-addremove xhg-dvc-remove-files xhg-rollback
 ;;;;;;  xhg-dvc-revert-files xhg-dvc-add-files xhg-init) "xhg" "../../lisp/xhg.el"
-;;;;;;  (19199 25917))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg.el
 
-(autoload (quote xhg-init) "xhg" "\
+(autoload 'xhg-init "xhg" "\
 Run hg init.
 
 \(fn &optional DIR)" t nil)
 
-(autoload (quote xhg-dvc-add-files) "xhg" "\
+(autoload 'xhg-dvc-add-files "xhg" "\
 Run hg add.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xhg-dvc-revert-files) "xhg" "\
+(autoload 'xhg-dvc-revert-files "xhg" "\
 Run hg revert.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xhg-rollback) "xhg" "\
+(autoload 'xhg-rollback "xhg" "\
 Run hg rollback.
 if prefix-arg (C-u) run hg revert
 
 \(fn &optional REVERT)" t nil)
 
-(autoload (quote xhg-dvc-remove-files) "xhg" "\
+(autoload 'xhg-dvc-remove-files "xhg" "\
 Run hg remove.
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xhg-addremove) "xhg" "\
+(autoload 'xhg-addremove "xhg" "\
 Run hg addremove.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-dvc-rename) "xhg" "\
+(autoload 'xhg-dvc-rename "xhg" "\
 Run hg rename.
 
 \(fn FROM TO &optional AFTER FORCE)" t nil)
 
-(autoload (quote xhg-forget) "xhg" "\
+(autoload 'xhg-forget "xhg" "\
 Run hg forget.
 
 \(fn &rest FILES)" t nil)
 
-(autoload (quote xhg-add-all-files) "xhg" "\
+(autoload 'xhg-add-all-files "xhg" "\
 Run 'hg add' to add all files to mercurial.
 Normally run 'hg add -n' to simulate the operation to see which files will be added.
 Only when called with a prefix argument, add the files.
 
 \(fn ARG)" t nil)
 
-(autoload (quote xhg-log-toggle-verbose) "xhg" "\
+(autoload 'xhg-log-toggle-verbose "xhg" "\
 Not documented
 
 \(fn)" t nil)
 
-(autoload (quote xhg-log) "xhg" "\
+(autoload 'xhg-log "xhg" "\
 Run hg log.
 When run interactively, the prefix argument decides, which parameters are queried from the user.
 C-u      : Show patches also, use all revisions
@@ -1969,63 +1969,63 @@ negative : Don't show patches, limit to n revisions.
 
 \(fn &optional R1 R2 SHOW-PATCH FILE)" t nil)
 
-(autoload (quote xhg-search-regexp-in-log) "xhg" "\
+(autoload 'xhg-search-regexp-in-log "xhg" "\
 Run hg log -k <pattern>
 
 \(fn)" t nil)
 
-(autoload (quote xhg-dvc-diff) "xhg" "\
+(autoload 'xhg-dvc-diff "xhg" "\
 Run hg diff.
 If DONT-SWITCH, don't switch to the diff buffer
 
 \(fn &optional BASE-REV PATH DONT-SWITCH)" t nil)
 
-(autoload (quote xhg-pull) "xhg" "\
+(autoload 'xhg-pull "xhg" "\
 Run hg pull.
 
 \(fn SRC &optional UPDATE-AFTER-PULL)" t nil)
 
-(autoload (quote xhg-push) "xhg" "\
+(autoload 'xhg-push "xhg" "\
 Run hg push.
 
 \(fn SRC)" t nil)
 
-(autoload (quote xhg-clone) "xhg" "\
+(autoload 'xhg-clone "xhg" "\
 Run hg clone.
 
 \(fn SRC &optional DEST REV NOUPDATE PULL)" t nil)
 
-(autoload (quote xhg-dired-clone) "xhg" "\
+(autoload 'xhg-dired-clone "xhg" "\
 Run `xhg-clone' from dired.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-bundle) "xhg" "\
+(autoload 'xhg-bundle "xhg" "\
 Run hg bundle.
 
 \(fn NAME)" t nil)
 
-(autoload (quote xhg-unbundle) "xhg" "\
+(autoload 'xhg-unbundle "xhg" "\
 Run hg unbundle.
 
 \(fn FNAME)" t nil)
 
-(autoload (quote xhg-incoming) "xhg" "\
+(autoload 'xhg-incoming "xhg" "\
 Run hg incoming.
 
 \(fn &optional SRC SHOW-PATCH NO-MERGES)" t nil)
 
-(autoload (quote xhg-outgoing) "xhg" "\
+(autoload 'xhg-outgoing "xhg" "\
 Run hg outgoing.
 
 \(fn &optional SRC SHOW-PATCH NO-MERGES)" t nil)
 
-(autoload (quote xhg-strip) "xhg" "\
+(autoload 'xhg-strip "xhg" "\
 Run hg strip.
 
 \(fn REV)" t nil)
 
-(autoload (quote xhg-merge) "xhg" "\
+(autoload 'xhg-merge "xhg" "\
 Run hg merge.
 To merge from specific revision, choose it in completion with tab.
 If `auto' is choose use default revision (last) unless there is ONLY
@@ -2034,7 +2034,7 @@ See (hg help merge.)
 
 \(fn)" t nil)
 
-(autoload (quote xhg-resolve) "xhg" "\
+(autoload 'xhg-resolve "xhg" "\
 Run hg resolve --all or <spec file>.
 With current prefix arg, take a file as argument.
 You should run xhg-merge before this.
@@ -2044,7 +2044,7 @@ If file is given resolve this file else resolve all files.
 
 \(fn &optional FILE)" t nil)
 
-(autoload (quote xhg-resolve-list) "xhg" "\
+(autoload 'xhg-resolve-list "xhg" "\
 Run hg resolve --list.
 Call interactively, show buffer with info.
 Non interactively, return an alist with
@@ -2054,55 +2054,55 @@ R = resolved
 
 \(fn &optional QUIET)" t nil)
 
-(autoload (quote xhg-branch) "xhg" "\
+(autoload 'xhg-branch "xhg" "\
 Run hg branch.
 When called with a prefix argument, ask for the new branch-name, otherwise
 display the current one.
 
 \(fn &optional NEW-NAME)" t nil)
 
-(autoload (quote xhg-branches) "xhg" "\
+(autoload 'xhg-branches "xhg" "\
 run xhg-branches
 
 \(fn &optional ONLY-LIST)" t nil)
 
-(autoload (quote xhg-merge-branch) "xhg" "\
+(autoload 'xhg-merge-branch "xhg" "\
 Run hg merge <branch-name>.
 Usually merge the change made in dev branch in default branch.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-tip) "xhg" "\
+(autoload 'xhg-tip "xhg" "\
 Run hg tip.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-heads) "xhg" "\
+(autoload 'xhg-heads "xhg" "\
 Run hg heads.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-parents) "xhg" "\
+(autoload 'xhg-parents "xhg" "\
 Run hg parents.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-identify) "xhg" "\
+(autoload 'xhg-identify "xhg" "\
 Run hg identify.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-verify) "xhg" "\
+(autoload 'xhg-verify "xhg" "\
 Run hg verify.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-showconfig) "xhg" "\
+(autoload 'xhg-showconfig "xhg" "\
 Run hg showconfig.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-paths) "xhg" "\
+(autoload 'xhg-paths "xhg" "\
 Run hg paths.
 When called interactive, display them in an *xhg-info* buffer.
 Otherwise the return value depends on TYPE:
@@ -2113,45 +2113,45 @@ otherwise: Return a list of two element sublists containing alias, path
 
 \(fn &optional TYPE)" t nil)
 
-(autoload (quote xhg-tag) "xhg" "\
+(autoload 'xhg-tag "xhg" "\
 Run hg tag -r <REV> NAME.
 
 \(fn REV NAME)" t nil)
 
-(autoload (quote xhg-tags) "xhg" "\
+(autoload 'xhg-tags "xhg" "\
 Run hg tags.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-view) "xhg" "\
+(autoload 'xhg-view "xhg" "\
 Run hg view.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-export) "xhg" "\
+(autoload 'xhg-export "xhg" "\
 Run hg export.
 `xhg-export-git-style-patches' determines, if git style patches are created.
 
 \(fn REV FNAME)" t nil)
 
-(autoload (quote xhg-import) "xhg" "\
+(autoload 'xhg-import "xhg" "\
 Run hg import.
 
 \(fn PATCH-FILE-NAME &optional FORCE)" t nil)
 
-(autoload (quote xhg-undo) "xhg" "\
+(autoload 'xhg-undo "xhg" "\
 Run hg undo.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-update) "xhg" "\
+(autoload 'xhg-update "xhg" "\
 Run hg update.
 When called with one prefix-arg run hg update -C (clean).
 Called with two prefix-args run hg update -C <branch-name> (switch to branch).
 
 \(fn &optional CLEAN SWITCH)" t nil)
 
-(autoload (quote xhg-serve-register-serve-parameter-list) "xhg" "\
+(autoload 'xhg-serve-register-serve-parameter-list "xhg" "\
 Register a mapping from a work directory root to a parameter list for hg serve.
 When START-SERVER is given, start the server immediately.
 Example usage:
@@ -2159,7 +2159,7 @@ Example usage:
 
 \(fn WORKING-COPY-ROOT PARAMETER-LIST &optional START-SERVER)" nil nil)
 
-(autoload (quote xhg-revision-get-last-revision) "xhg" "\
+(autoload 'xhg-revision-get-last-revision "xhg" "\
 Insert the content of FILE in LAST-REVISION, in current buffer.
 
 LAST-REVISION looks like
@@ -2167,13 +2167,13 @@ LAST-REVISION looks like
 
 \(fn FILE LAST-REVISION)" nil nil)
 
-(autoload (quote xhg-revision-get-last-or-num-revision) "xhg" "\
+(autoload 'xhg-revision-get-last-or-num-revision "xhg" "\
 Run the command:
 hg cat --rev <num revision> -o outputfile inputfile
 
 \(fn INFILE OUTFILE &optional REVISION)" t nil)
 
-(autoload (quote xhg-ediff-file-at-rev) "xhg" "\
+(autoload 'xhg-ediff-file-at-rev "xhg" "\
 Ediff file at rev1 against rev2.
 With prefix arg do not delete the files.
 If rev1 or rev2 are empty, ediff current file against last revision.
@@ -2181,7 +2181,7 @@ Tip: to quit ediff, use C-u q to kill the ediffied buffers.
 
 \(fn FILE REV1 REV2 &optional KEEP-VARIANTS)" t nil)
 
-(autoload (quote xhg-missing-1) "xhg" "\
+(autoload 'xhg-missing-1 "xhg" "\
 Shows the logs of the new arrived changesets after a pull and before an update.
 
 \(fn)" t nil)
@@ -2190,35 +2190,35 @@ Shows the logs of the new arrived changesets after a pull and before an update.
 
 ;;;### (autoloads (xhg-annotate-quit xhg-annotate xhg-annotate-show-next-rev-number-log
 ;;;;;;  xhg-annotate-show-prec-rev-number-log xhg-annotate-show-rev-number-log)
-;;;;;;  "xhg-annotate" "../../lisp/xhg-annotate.el" (19074 6971))
+;;;;;;  "xhg-annotate" "../../lisp/xhg-annotate.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-annotate.el
 
-(defvar xhg-annotate-mode-map (let ((map (make-sparse-keymap))) (define-key map [(shift down)] (quote xhg-annotate-show-next-rev-number-log)) (define-key map [(shift up)] (quote xhg-annotate-show-prec-rev-number-log)) (define-key map (kbd "<return>") (quote xhg-annotate-show-rev-number-log)) (define-key map [113] (quote xhg-annotate-quit)) map) "\
+(defvar xhg-annotate-mode-map (let ((map (make-sparse-keymap))) (define-key map [(shift down)] 'xhg-annotate-show-next-rev-number-log) (define-key map [(shift up)] 'xhg-annotate-show-prec-rev-number-log) (define-key map (kbd "<return>") 'xhg-annotate-show-rev-number-log) (define-key map [113] 'xhg-annotate-quit) map) "\
 Keymap used for xhg-annotate-mode commands.")
 
-(autoload (quote xhg-annotate-show-rev-number-log) "xhg-annotate" "\
+(autoload 'xhg-annotate-show-rev-number-log "xhg-annotate" "\
 Show `xhg-log' corresponding to current line in `xhg-annotate' buffer.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-annotate-show-prec-rev-number-log) "xhg-annotate" "\
+(autoload 'xhg-annotate-show-prec-rev-number-log "xhg-annotate" "\
 Go to precedent line in xhg-annotate buffer and display
 corresponding xhg-log output.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-annotate-show-next-rev-number-log) "xhg-annotate" "\
+(autoload 'xhg-annotate-show-next-rev-number-log "xhg-annotate" "\
 Go to next line in xhg-annotate buffer and display
 corresponding xhg-log output.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-annotate) "xhg-annotate" "\
+(autoload 'xhg-annotate "xhg-annotate" "\
 Run hg annotate and display xhg-log in other-window.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-annotate-quit) "xhg-annotate" "\
+(autoload 'xhg-annotate-quit "xhg-annotate" "\
 Quit and restore precedent window config.
 
 \(fn)" t nil)
@@ -2226,10 +2226,10 @@ Quit and restore precedent window config.
 ;;;***
 
 ;;;### (autoloads (xhg-tree-root) "xhg-core" "../../lisp/xhg-core.el"
-;;;;;;  (17694 7629))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-core.el
 
-(autoload (quote xhg-tree-root) "xhg-core" "\
+(autoload 'xhg-tree-root "xhg-core" "\
 Return the tree root for LOCATION, nil if not in a local tree.
 Computation is done from withing Emacs, by looking at an .hg/
 directory in a parent buffer of LOCATION.  This is therefore very
@@ -2243,31 +2243,31 @@ mercurial managed tree (but return nil).
 ;;;***
 
 ;;;### (autoloads (xhg-dvc-export-via-email) "xhg-dvc" "../../lisp/xhg-dvc.el"
-;;;;;;  (18939 40748))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-dvc.el
 
-(dvc-register-dvc (quote xhg) "Mercurial")
+(dvc-register-dvc 'xhg "Mercurial")
 
-(defalias (quote xhg-dvc-tree-root) (quote xhg-tree-root))
+(defalias 'xhg-dvc-tree-root 'xhg-tree-root)
 
-(defalias (quote xhg-dvc-merge) (quote xhg-merge))
+(defalias 'xhg-dvc-merge 'xhg-merge)
 
-(autoload (quote xhg-dvc-export-via-email) "xhg-dvc" "\
+(autoload 'xhg-dvc-export-via-email "xhg-dvc" "\
 Not documented
 
 \(fn)" t nil)
 
-(defalias (quote xhg-dvc-save-diff) (quote xhg-save-diff))
+(defalias 'xhg-dvc-save-diff 'xhg-save-diff)
 
-(defalias (quote xhg-dvc-command-version) (quote xhg-command-version))
+(defalias 'xhg-dvc-command-version 'xhg-command-version)
 
 ;;;***
 
 ;;;### (autoloads (xhg-insinuate-gnus) "xhg-gnus" "../../lisp/xhg-gnus.el"
-;;;;;;  (18640 24202))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-gnus.el
 
-(autoload (quote xhg-insinuate-gnus) "xhg-gnus" "\
+(autoload 'xhg-insinuate-gnus "xhg-gnus" "\
 Integrate Xhg into Gnus.
 The following keybindings are installed for gnus-summary:
 K t s `xhg-gnus-article-view-status-for-import-patch'
@@ -2281,16 +2281,16 @@ K t s `xhg-gnus-article-view-status-for-import-patch'
 ;;;;;;  xhg-qconvert-to-permanent xhg-qdelete xhg-qdiff xhg-qseries
 ;;;;;;  xhg-qunapplied xhg-qapplied xhg-qpush xhg-qpop xhg-qrefresh-header
 ;;;;;;  xhg-qrefresh xhg-qnew xhg-qinit) "xhg-mq" "../../lisp/xhg-mq.el"
-;;;;;;  (18905 22910))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-mq.el
 
-(autoload (quote xhg-qinit) "xhg-mq" "\
+(autoload 'xhg-qinit "xhg-mq" "\
 Run hg qinit.
 When called without a prefix argument run hg qinit -c, otherwise hg qinit.
 
 \(fn &optional DIR QINIT-SWITCH)" t nil)
 
-(autoload (quote xhg-qnew) "xhg-mq" "\
+(autoload 'xhg-qnew "xhg-mq" "\
 Run hg qnew.
 Asks for the patch name and an optional commit description.
 If the commit description is not empty, run hg qnew -m \"commit description\"
@@ -2298,104 +2298,104 @@ When called with a prefix argument run hg qnew -f.
 
 \(fn PATCH-NAME &optional COMMIT-DESCRIPTION FORCE)" t nil)
 
-(autoload (quote xhg-qrefresh) "xhg-mq" "\
+(autoload 'xhg-qrefresh "xhg-mq" "\
 Run hg qrefresh.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qrefresh-header) "xhg-mq" "\
+(autoload 'xhg-qrefresh-header "xhg-mq" "\
 Run hg qrefresh --message.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qpop) "xhg-mq" "\
+(autoload 'xhg-qpop "xhg-mq" "\
 Run hg qpop.
 When called with a prefix argument run hg qpop -a.
 
 \(fn &optional ALL)" t nil)
 
-(autoload (quote xhg-qpush) "xhg-mq" "\
+(autoload 'xhg-qpush "xhg-mq" "\
 Run hg qpush.
 When called with a prefix argument run hg qpush -a.
 
 \(fn &optional ALL)" t nil)
 
-(autoload (quote xhg-qapplied) "xhg-mq" "\
+(autoload 'xhg-qapplied "xhg-mq" "\
 Run hg qapplied.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qunapplied) "xhg-mq" "\
+(autoload 'xhg-qunapplied "xhg-mq" "\
 Run hg qunapplied.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qseries) "xhg-mq" "\
+(autoload 'xhg-qseries "xhg-mq" "\
 Run hg qseries.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qdiff) "xhg-mq" "\
+(autoload 'xhg-qdiff "xhg-mq" "\
 Run hg qdiff.
 
 \(fn &optional FILE)" t nil)
 
-(autoload (quote xhg-qdelete) "xhg-mq" "\
+(autoload 'xhg-qdelete "xhg-mq" "\
 Run hg qdelete
 
 \(fn PATCH)" t nil)
 
-(autoload (quote xhg-qconvert-to-permanent) "xhg-mq" "\
+(autoload 'xhg-qconvert-to-permanent "xhg-mq" "\
 Convert all applied patchs in permanent changeset.
 Run the command hg qdelete -r qbase:qtip
 Called with prefix-arg, do not prompt for confirmation
 
 \(fn &optional FORCE)" t nil)
 
-(autoload (quote xhg-qrename) "xhg-mq" "\
+(autoload 'xhg-qrename "xhg-mq" "\
 Run hg qrename
 
 \(fn FROM TO)" t nil)
 
-(autoload (quote xhg-qtop) "xhg-mq" "\
+(autoload 'xhg-qtop "xhg-mq" "\
 Run hg qtop.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qnext) "xhg-mq" "\
+(autoload 'xhg-qnext "xhg-mq" "\
 Run hg qnext.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qprev) "xhg-mq" "\
+(autoload 'xhg-qprev "xhg-mq" "\
 Run hg qprev.
 
 \(fn)" t nil)
 
-(autoload (quote xhg-qheader) "xhg-mq" "\
+(autoload 'xhg-qheader "xhg-mq" "\
 Run hg qheader.
 
 \(fn &optional PATCH)" t nil)
 
-(autoload (quote xhg-qsingle) "xhg-mq" "\
+(autoload 'xhg-qsingle "xhg-mq" "\
 Merge applied patches in a single patch starting from \"qbase\".
 If prefix arg, merge applied patches starting from revision number or patch-name.
 
 \(fn FILE &optional (START-FROM \"qbase\"))" t nil)
 
-(autoload (quote xhg-qimport) "xhg-mq" "\
+(autoload 'xhg-qimport "xhg-mq" "\
 Run hg qimport
 
 \(fn PATCH &optional PUSH)" t nil)
 
-(autoload (quote xhg-mq-export-via-mail) "xhg-mq" "\
+(autoload 'xhg-mq-export-via-mail "xhg-mq" "\
 Prepare an email that contains a mq patch.
 `xhg-submit-patch-mapping' is honored for the destination email address and the project name
 that is used in the generated email.
 
 \(fn PATCH &optional SINGLE)" t nil)
 
-(autoload (quote xhg-mq-show-stack) "xhg-mq" "\
+(autoload 'xhg-mq-show-stack "xhg-mq" "\
 Show the mq stack.
 
 \(fn)" t nil)
@@ -2403,10 +2403,10 @@ Show the mq stack.
 ;;;***
 
 ;;;### (autoloads (xhg-dvc-log) "xhg-revision" "../../lisp/xhg-revision.el"
-;;;;;;  (18552 2376))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xhg-revision.el
 
-(autoload (quote xhg-dvc-log) "xhg-revision" "\
+(autoload 'xhg-dvc-log "xhg-revision" "\
 Show a dvc formatted log for xhg.
 
 \(fn PATH LAST-N)" t nil)
@@ -2415,10 +2415,10 @@ Show a dvc formatted log for xhg.
 
 ;;;### (autoloads (xmtn-conflicts-clean xmtn-conflicts-review xmtn-conflicts-merge
 ;;;;;;  xmtn-conflicts-propagate) "xmtn-conflicts" "../../lisp/xmtn-conflicts.el"
-;;;;;;  (19240 17467))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-conflicts.el
 
-(autoload (quote xmtn-conflicts-propagate) "xmtn-conflicts" "\
+(autoload 'xmtn-conflicts-propagate "xmtn-conflicts" "\
 List conflicts for a propagate from LEFT-WORK to RIGHT-WORK workspace branch head revisions.
 Allow specifying resolutions.  LEFT-WORK and RIGHT-WORK are strings giving
 workspace directories; prompted if nil. Review is done in RIGHT-WORK
@@ -2426,17 +2426,17 @@ workspace.
 
 \(fn LEFT-WORK RIGHT-WORK)" t nil)
 
-(autoload (quote xmtn-conflicts-merge) "xmtn-conflicts" "\
+(autoload 'xmtn-conflicts-merge "xmtn-conflicts" "\
 List conflicts between current head revisions.
 
 \(fn)" t nil)
 
-(autoload (quote xmtn-conflicts-review) "xmtn-conflicts" "\
+(autoload 'xmtn-conflicts-review "xmtn-conflicts" "\
 Review conflicts for WORKSPACE (a directory; default prompt).
 
 \(fn &optional WORKSPACE)" t nil)
 
-(autoload (quote xmtn-conflicts-clean) "xmtn-conflicts" "\
+(autoload 'xmtn-conflicts-clean "xmtn-conflicts" "\
 Remove conflicts resolution files from WORKSPACE (a directory; default prompt).
 
 \(fn &optional WORKSPACE)" t nil)
@@ -2453,107 +2453,107 @@ Remove conflicts resolution files from WORKSPACE (a directory; default prompt).
 ;;;;;;  xmtn-dvc-status xmtn-dvc-command-version xmtn-dvc-delta xmtn-dvc-diff
 ;;;;;;  xmtn-dvc-search-file-in-diff xmtn-show-base-revision xmtn-dvc-log-edit-done
 ;;;;;;  xmtn-dvc-log-edit xmtn-dvc-log-edit-file-name-func) "xmtn-dvc"
-;;;;;;  "../../lisp/xmtn-dvc.el" (19240 17467))
+;;;;;;  "../../lisp/xmtn-dvc.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-dvc.el
 
-(dvc-register-dvc (quote xmtn) "monotone")
+(dvc-register-dvc 'xmtn "monotone")
 
-(autoload (quote xmtn-dvc-log-edit-file-name-func) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-log-edit-file-name-func "xmtn-dvc" "\
 Not documented
 
 \(fn &optional ROOT)" nil nil)
 
-(autoload (quote xmtn-dvc-log-edit) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-log-edit "xmtn-dvc" "\
 Not documented
 
 \(fn ROOT OTHER-FRAME NO-INIT)" nil nil)
 
-(autoload (quote xmtn-dvc-log-edit-done) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-log-edit-done "xmtn-dvc" "\
 Not documented
 
 \(fn)" nil nil)
 
-(autoload (quote xmtn-show-base-revision) "xmtn-dvc" "\
+(autoload 'xmtn-show-base-revision "xmtn-dvc" "\
 Show the base revision of the current monotone tree in the minibuffer.
 
 \(fn)" t nil)
 
-(autoload (quote xmtn-dvc-search-file-in-diff) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-search-file-in-diff "xmtn-dvc" "\
 Not documented
 
 \(fn FILE)" nil nil)
 
-(autoload (quote xmtn-dvc-diff) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-diff "xmtn-dvc" "\
 Not documented
 
 \(fn &optional REV PATH DONT-SWITCH)" nil nil)
 
-(autoload (quote xmtn-dvc-delta) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-delta "xmtn-dvc" "\
 Not documented
 
 \(fn FROM-REVISION-ID TO-REVISION-ID &optional DONT-SWITCH)" nil nil)
 
-(autoload (quote xmtn-dvc-command-version) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-command-version "xmtn-dvc" "\
 Not documented
 
 \(fn)" nil nil)
 
-(autoload (quote xmtn-dvc-status) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-status "xmtn-dvc" "\
 Display status of monotone tree at `default-directory'.
 
 \(fn)" nil nil)
 
-(autoload (quote xmtn-dvc-revision-direct-ancestor) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-revision-direct-ancestor "xmtn-dvc" "\
 Not documented
 
 \(fn REVISION-ID)" nil nil)
 
-(autoload (quote xmtn-dvc-name-construct) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-name-construct "xmtn-dvc" "\
 Not documented
 
 \(fn BACKEND-REVISION)" nil nil)
 
-(autoload (quote xmtn-dvc-edit-ignore-files) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-edit-ignore-files "xmtn-dvc" "\
 Not documented
 
 \(fn)" nil nil)
 
-(autoload (quote xmtn-dvc-ignore-files) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-ignore-files "xmtn-dvc" "\
 Not documented
 
 \(fn FILE-NAMES)" nil nil)
 
-(autoload (quote xmtn-dvc-backend-ignore-file-extensions) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-backend-ignore-file-extensions "xmtn-dvc" "\
 Not documented
 
 \(fn EXTENSIONS)" nil nil)
 
-(autoload (quote xmtn-dvc-backend-ignore-file-extensions-in-dir) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-backend-ignore-file-extensions-in-dir "xmtn-dvc" "\
 Not documented
 
 \(fn FILE-LIST)" nil nil)
 
-(autoload (quote xmtn-dvc-add-files) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-add-files "xmtn-dvc" "\
 Not documented
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xmtn-dvc-add) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-add "xmtn-dvc" "\
 Not documented
 
 \(fn FILE)" nil nil)
 
-(autoload (quote xmtn-dvc-remove-files) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-remove-files "xmtn-dvc" "\
 Not documented
 
 \(fn &rest FILES)" nil nil)
 
-(autoload (quote xmtn-dvc-rename) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-rename "xmtn-dvc" "\
 Not documented
 
 \(fn FROM-NAME TO-NAME BOOKKEEP-ONLY)" nil nil)
 
-(autoload (quote xmtn-send-enter-to-subprocess) "xmtn-dvc" "\
+(autoload 'xmtn-send-enter-to-subprocess "xmtn-dvc" "\
 Send an \"enter\" keystroke to a monotone subprocess.
 
 To be used in an xmtn process buffer.  Useful when monotone
@@ -2562,42 +2562,42 @@ finished.
 
 \(fn)" t nil)
 
-(autoload (quote xmtn-dvc-update) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-update "xmtn-dvc" "\
 Not documented
 
 \(fn &optional REVISION-ID NO-DING)" nil nil)
 
-(autoload (quote xmtn-dvc-merge) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-merge "xmtn-dvc" "\
 Not documented
 
 \(fn &optional OTHER)" nil nil)
 
-(autoload (quote xmtn-dvc-pull) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-pull "xmtn-dvc" "\
 Implement `dvc-pull' for xmtn.
 
 \(fn &optional OTHER)" nil nil)
 
-(autoload (quote xmtn-dvc-revert-files) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-revert-files "xmtn-dvc" "\
 Not documented
 
 \(fn &rest FILE-NAMES)" nil nil)
 
-(autoload (quote xmtn-revision-get-previous-revision) "xmtn-dvc" "\
+(autoload 'xmtn-revision-get-previous-revision "xmtn-dvc" "\
 Not documented
 
 \(fn FILE REVISION-ID)" nil nil)
 
-(autoload (quote xmtn-revision-get-last-revision) "xmtn-dvc" "\
+(autoload 'xmtn-revision-get-last-revision "xmtn-dvc" "\
 Not documented
 
 \(fn FILE STUFF)" nil nil)
 
-(autoload (quote xmtn-revision-get-file-revision) "xmtn-dvc" "\
+(autoload 'xmtn-revision-get-file-revision "xmtn-dvc" "\
 Not documented
 
 \(fn FILE STUFF)" nil nil)
 
-(autoload (quote xmtn-dvc-revision-nth-ancestor) "xmtn-dvc" "\
+(autoload 'xmtn-dvc-revision-nth-ancestor "xmtn-dvc" "\
 Not documented
 
 \(fn &rest ARGS)" nil nil)
@@ -2605,10 +2605,10 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (xmtn-match--test) "xmtn-match" "../../lisp/xmtn-match.el"
-;;;;;;  (19066 55128))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-match.el
 
-(autoload (quote xmtn-match--test) "xmtn-match" "\
+(autoload 'xmtn-match--test "xmtn-match" "\
 Not documented
 
 \(fn XMTN--THUNK)" nil nil)
@@ -2616,10 +2616,10 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (xmtn-tree-root) "xmtn-minimal" "../../lisp/xmtn-minimal.el"
-;;;;;;  (17929 20220))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-minimal.el
 
-(autoload (quote xmtn-tree-root) "xmtn-minimal" "\
+(autoload 'xmtn-tree-root "xmtn-minimal" "\
 Not documented
 
 \(fn &optional LOCATION NO-ERROR)" nil nil)
@@ -2627,21 +2627,21 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (xmtn-status-one xmtn-status-multiple xmtn-update-multiple)
-;;;;;;  "xmtn-multi-status" "../../lisp/xmtn-multi-status.el" (19240
-;;;;;;  17467))
+;;;;;;  "xmtn-multi-status" "../../lisp/xmtn-multi-status.el" (19342
+;;;;;;  24247))
 ;;; Generated autoloads from ../../lisp/xmtn-multi-status.el
 
-(autoload (quote xmtn-update-multiple) "xmtn-multi-status" "\
+(autoload 'xmtn-update-multiple "xmtn-multi-status" "\
 Update all projects under DIR.
 
 \(fn DIR &optional WORKSPACES)" t nil)
 
-(autoload (quote xmtn-status-multiple) "xmtn-multi-status" "\
+(autoload 'xmtn-status-multiple "xmtn-multi-status" "\
 Show actions to update all projects under DIR.
 
 \(fn DIR &optional WORKSPACES SKIP-INITIAL-SCAN)" t nil)
 
-(autoload (quote xmtn-status-one) "xmtn-multi-status" "\
+(autoload 'xmtn-status-one "xmtn-multi-status" "\
 Show actions to update WORK.
 
 \(fn WORK)" t nil)
@@ -2649,10 +2649,10 @@ Show actions to update WORK.
 ;;;***
 
 ;;;### (autoloads (xmtn-propagate-one xmtn-propagate-multiple) "xmtn-propagate"
-;;;;;;  "../../lisp/xmtn-propagate.el" (19240 17468))
+;;;;;;  "../../lisp/xmtn-propagate.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-propagate.el
 
-(autoload (quote xmtn-propagate-multiple) "xmtn-propagate" "\
+(autoload 'xmtn-propagate-multiple "xmtn-propagate" "\
 Show all actions needed to propagate projects under FROM-DIR
 to TO-DIR. WORKSPACES (default nil) is a list of workspaces
 common to from-dir and to-dir; if nil, the directories are
@@ -2660,7 +2660,7 @@ scanned and all common ones found are used.
 
 \(fn FROM-DIR TO-DIR &optional WORKSPACES)" t nil)
 
-(autoload (quote xmtn-propagate-one) "xmtn-propagate" "\
+(autoload 'xmtn-propagate-one "xmtn-propagate" "\
 Show all actions needed to propagate FROM-WORK to TO-WORK.
 
 \(fn FROM-WORK TO-WORK)" t nil)
@@ -2671,47 +2671,47 @@ Show all actions needed to propagate FROM-WORK to TO-WORK.
 ;;;;;;  xmtn-list-revisions-modifying-file xmtn-view-heads-revlist
 ;;;;;;  xmtn-dvc-missing xmtn-dvc-changelog xmtn-log xmtn-dvc-log
 ;;;;;;  xmtn-revision-list-entry-patch-printer xmtn-revision-refresh-maybe)
-;;;;;;  "xmtn-revlist" "../../lisp/xmtn-revlist.el" (19240 17468))
+;;;;;;  "xmtn-revlist" "../../lisp/xmtn-revlist.el" (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-revlist.el
 
-(autoload (quote xmtn-revision-refresh-maybe) "xmtn-revlist" "\
+(autoload 'xmtn-revision-refresh-maybe "xmtn-revlist" "\
 Not documented
 
 \(fn)" nil nil)
 
-(autoload (quote xmtn-revision-list-entry-patch-printer) "xmtn-revlist" "\
+(autoload 'xmtn-revision-list-entry-patch-printer "xmtn-revlist" "\
 Not documented
 
 \(fn PATCH)" nil nil)
 
-(autoload (quote xmtn-dvc-log) "xmtn-revlist" "\
+(autoload 'xmtn-dvc-log "xmtn-revlist" "\
 Not documented
 
 \(fn PATH LAST-N)" nil nil)
 
-(autoload (quote xmtn-log) "xmtn-revlist" "\
+(autoload 'xmtn-log "xmtn-revlist" "\
 Not documented
 
 \(fn &optional PATH LAST-N)" t nil)
 
-(autoload (quote xmtn-dvc-changelog) "xmtn-revlist" "\
+(autoload 'xmtn-dvc-changelog "xmtn-revlist" "\
 Not documented
 
 \(fn &optional PATH)" nil nil)
 
-(defvar xmtn-revlist-mode-map (let ((map (make-sparse-keymap))) (define-key map "CM" (quote xmtn-conflicts-merge)) (define-key map "CP" (quote xmtn-conflicts-propagate)) (define-key map "CR" (quote xmtn-conflicts-review)) (define-key map "CC" (quote xmtn-conflicts-clean)) (define-key map "MH" (quote xmtn-view-heads-revlist)) (define-key map "MP" (quote xmtn-propagate-from)) (define-key map "MC" (quote xmtn-revlist-show-conflicts)) map))
+(defvar xmtn-revlist-mode-map (let ((map (make-sparse-keymap))) (define-key map "CM" 'xmtn-conflicts-merge) (define-key map "CP" 'xmtn-conflicts-propagate) (define-key map "CR" 'xmtn-conflicts-review) (define-key map "CC" 'xmtn-conflicts-clean) (define-key map "MH" 'xmtn-view-heads-revlist) (define-key map "MP" 'xmtn-propagate-from) (define-key map "MC" 'xmtn-revlist-show-conflicts) map))
 
-(autoload (quote xmtn-dvc-missing) "xmtn-revlist" "\
+(autoload 'xmtn-dvc-missing "xmtn-revlist" "\
 Not documented
 
 \(fn &optional OTHER)" nil nil)
 
-(autoload (quote xmtn-view-heads-revlist) "xmtn-revlist" "\
+(autoload 'xmtn-view-heads-revlist "xmtn-revlist" "\
 Display a revlist buffer showing the heads of the current branch.
 
 \(fn)" t nil)
 
-(autoload (quote xmtn-list-revisions-modifying-file) "xmtn-revlist" "\
+(autoload 'xmtn-list-revisions-modifying-file "xmtn-revlist" "\
 Display a revlist buffer showing the revisions that modify FILE.
 
 Only ancestors of revision LAST-BACKEND-ID will be considered.
@@ -2720,12 +2720,12 @@ to the base revision of the current tree.
 
 \(fn FILE &optional LAST-BACKEND-ID FIRST-LINE-ONLY-P LAST-N)" t nil)
 
-(autoload (quote xmtn-view-revlist-for-selector) "xmtn-revlist" "\
+(autoload 'xmtn-view-revlist-for-selector "xmtn-revlist" "\
 Display a revlist buffer showing the revisions matching SELECTOR.
 
 \(fn SELECTOR)" t nil)
 
-(autoload (quote xmtn-dvc-revlog-get-revision) "xmtn-revlist" "\
+(autoload 'xmtn-dvc-revlog-get-revision "xmtn-revlist" "\
 Not documented
 
 \(fn REVISION-ID)" nil nil)
@@ -2733,10 +2733,10 @@ Not documented
 ;;;***
 
 ;;;### (autoloads (xmtn-check-command-version) "xmtn-run" "../../lisp/xmtn-run.el"
-;;;;;;  (19240 17468))
+;;;;;;  (19342 24247))
 ;;; Generated autoloads from ../../lisp/xmtn-run.el
 
-(autoload (quote xmtn-check-command-version) "xmtn-run" "\
+(autoload 'xmtn-check-command-version "xmtn-run" "\
 Check and display the version identifier of the mtn command.
 
 This command resets xmtn's command version cache.
@@ -2754,8 +2754,8 @@ This command resets xmtn's command version cache.
 ;;;;;;  "../../lisp/tla-autoconf.el" "../../lisp/xgit-annotate.el"
 ;;;;;;  "../../lisp/xgit-revision.el" "../../lisp/xhg-be.el" "../../lisp/xhg-log.el"
 ;;;;;;  "../../lisp/xmtn-automate.el" "../../lisp/xmtn-base.el" "../../lisp/xmtn-basic-io.el"
-;;;;;;  "../../lisp/xmtn-compat.el" "../../lisp/xmtn-ids.el") (19305
-;;;;;;  15255 12548))
+;;;;;;  "../../lisp/xmtn-compat.el" "../../lisp/xmtn-ids.el") (19342
+;;;;;;  24317 405389))
 
 ;;;***
 

@@ -7,7 +7,7 @@ PACKAGE_VERSION = 0
 ##############################################################################
 # location of required programms
 RM   = @RM@
-MKDIR_P = ../../install-sh -c -d
+MKDIR_P = /bin/mkdir -p
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 MAKEINFO = makeinfo

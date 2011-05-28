@@ -13,14 +13,14 @@
 ;;
 ;; to your ~/.emacs.el
 
-(add-to-list 'load-path "/Users/dls/.emacs.d/dvc-snapshot/++build/lisp")
+(add-to-list 'load-path "/home/dls/.emacs.d/dvc-snapshot/++build/lisp")
 (unless (locate-library "ewoc")
-  (add-to-list 'load-path "/Users/dls/.emacs.d/dvc-snapshot/++build/lisp/contrib"))
-(add-to-list 'Info-default-directory-list "/Users/dls/.emacs.d/dvc-snapshot/++build/texinfo")
+  (add-to-list 'load-path "/home/dls/.emacs.d/dvc-snapshot/++build/lisp/contrib"))
+(add-to-list 'Info-default-directory-list "/home/dls/.emacs.d/dvc-snapshot/++build/texinfo")
 
 (if (featurep 'dvc-core)
     (dvc-reload)
   (if (featurep 'xemacs)
-      (require 'dvc-autoloads "/Users/dls/.emacs.d/dvc-snapshot/++build/lisp/auto-autoloads.elc")
+      (require 'dvc-autoloads "/home/dls/.emacs.d/dvc-snapshot/++build/lisp/auto-autoloads.elc")
     (require 'dvc-autoloads)))
 
